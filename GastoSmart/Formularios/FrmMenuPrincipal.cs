@@ -31,5 +31,11 @@ namespace GastoSmart
                 frm.ShowDialog();
             }
         }
+
+        private void btnPresupuestos_Click(object sender, EventArgs e)
+        {
+            using var frm = new FrmPresupuestoGlobal();
+            frm.ShowDialog();
+        }
     }
 }

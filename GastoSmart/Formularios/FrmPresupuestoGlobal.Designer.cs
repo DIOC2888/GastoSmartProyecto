@@ -34,8 +34,8 @@
             label3 = new Label();
             nudMontoMensual = new NumericUpDown();
             nudUmbralDiario = new NumericUpDown();
-            button1 = new Button();
-            button2 = new Button();
+            btnGuardar = new Button();
+            btnCancelar = new Button();
             ((System.ComponentModel.ISupportInitialize)nudUmbralMensual).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudMontoMensual).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudUmbralDiario).BeginInit();
@@ -53,9 +53,11 @@
             // nudUmbralMensual
             // 
             nudUmbralMensual.Location = new Point(309, 130);
+            nudUmbralMensual.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudUmbralMensual.Name = "nudUmbralMensual";
             nudUmbralMensual.Size = new Size(150, 27);
             nudUmbralMensual.TabIndex = 1;
+            nudUmbralMensual.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // label2
             // 
@@ -77,7 +79,9 @@
             // 
             // nudMontoMensual
             // 
+            nudMontoMensual.DecimalPlaces = 2;
             nudMontoMensual.Location = new Point(309, 73);
+            nudMontoMensual.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             nudMontoMensual.Name = "nudMontoMensual";
             nudMontoMensual.Size = new Size(150, 27);
             nudMontoMensual.TabIndex = 4;
@@ -85,35 +89,39 @@
             // nudUmbralDiario
             // 
             nudUmbralDiario.Location = new Point(309, 187);
+            nudUmbralDiario.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudUmbralDiario.Name = "nudUmbralDiario";
             nudUmbralDiario.Size = new Size(150, 27);
             nudUmbralDiario.TabIndex = 5;
+            nudUmbralDiario.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
-            // button1
+            // btnGuardar
             // 
-            button1.Location = new Point(206, 261);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 6;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;            
+            btnGuardar.Location = new Point(206, 261);
+            btnGuardar.Name = "btnGuardar";
+            btnGuardar.Size = new Size(94, 29);
+            btnGuardar.TabIndex = 6;
+            btnGuardar.Text = "Guardar";
+            btnGuardar.UseVisualStyleBackColor = true;
+            btnGuardar.Click += btnGuardar_Click;
             // 
-            // button2
+            // btnCancelar
             // 
-            button2.Location = new Point(334, 261);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 29);
-            button2.TabIndex = 7;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            btnCancelar.Location = new Point(334, 261);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(94, 29);
+            btnCancelar.TabIndex = 7;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // FrmPresupuestoGlobal
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnGuardar);
             Controls.Add(nudUmbralDiario);
             Controls.Add(nudMontoMensual);
             Controls.Add(label3);
@@ -137,7 +145,7 @@
         private Label label3;
         private NumericUpDown nudMontoMensual;
         private NumericUpDown nudUmbralDiario;
-        private Button button1;
-        private Button button2;
+        private Button btnGuardar;
+        private Button btnCancelar;
     }
 }

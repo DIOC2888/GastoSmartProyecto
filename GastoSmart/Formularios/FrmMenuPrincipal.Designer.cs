@@ -104,6 +104,7 @@
             btnPresupuestos.TabIndex = 6;
             btnPresupuestos.Text = "Presupuestos";
             btnPresupuestos.UseVisualStyleBackColor = true;
+            btnPresupuestos.Click += btnPresupuestos_Click;
             // 
             // btnReportes
             // 
