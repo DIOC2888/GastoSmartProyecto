@@ -9,16 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Formularios\FrmReportes.cs" />
-    <Compile Remove="Formularios\FrmReportes.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Formularios\FrmReportes.cs" />
-    <None Include="Formularios\FrmReportes.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
