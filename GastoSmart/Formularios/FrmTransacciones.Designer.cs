@@ -98,7 +98,6 @@
             Controls.Add(dgvTransacciones);
             Name = "FrmTransacciones";
             Text = "FrmTransacciones";
-            Load += FrmTransacciones_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTransacciones).EndInit();
             ResumeLayout(false);
         }

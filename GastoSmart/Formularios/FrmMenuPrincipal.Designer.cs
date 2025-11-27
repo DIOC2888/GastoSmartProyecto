@@ -62,7 +62,7 @@
             // lblSaldoActual
             // 
             lblSaldoActual.AutoSize = true;
-            lblSaldoActual.Location = new Point(207, 111);
+            lblSaldoActual.Location = new Point(180, 111);
             lblSaldoActual.Name = "lblSaldoActual";
             lblSaldoActual.Size = new Size(93, 20);
             lblSaldoActual.TabIndex = 2;
@@ -98,7 +98,7 @@
             // 
             // btnPresupuestos
             // 
-            btnPresupuestos.Location = new Point(138, 318);
+            btnPresupuestos.Location = new Point(138, 302);
             btnPresupuestos.Name = "btnPresupuestos";
             btnPresupuestos.Size = new Size(135, 29);
             btnPresupuestos.TabIndex = 6;
@@ -108,12 +108,13 @@
             // 
             // btnReportes
             // 
-            btnReportes.Location = new Point(138, 273);
+            btnReportes.Location = new Point(138, 267);
             btnReportes.Name = "btnReportes";
             btnReportes.Size = new Size(135, 29);
             btnReportes.TabIndex = 7;
             btnReportes.Text = "Reportes";
             btnReportes.UseVisualStyleBackColor = true;
+            btnReportes.Click += btnReportes_Click;
             // 
             // btnCategorias
             // 

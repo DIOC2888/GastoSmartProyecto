@@ -15,46 +15,63 @@ namespace GastoSmart.Formularios
 {
     public partial class FrmTransaccionDetalle : Form
     {
+        // Transacción que se va a crear o editar.
+        // Se devuelve al formulario padre cuando el usuario presiona Aceptar.
         public Transaccion Transaccion { get; private set; } = null!;
 
+        // Indica si el formulario está en modo edición (true) o nueva transacción (false).
         private readonly bool _esEdicion;
+
+        // Servicio para obtener las categorías y mostrarlas en el combo.
         private readonly CategoriaService _categoriaService = AppServices.CategoriaService;
 
-        // NUEVA
+        // Constructor para crear una NUEVA transacción.
         public FrmTransaccionDetalle()
         {
             InitializeComponent();
             _esEdicion = false;
+
+            // Inicializamos las listas y valores por defecto de los controles.
             InicializarControles();
         }
 
-        // EDITAR
+        // Constructor para EDITAR una transacción existente.
+        // Recibe una transacción que ya tiene datos.
         public FrmTransaccionDetalle(Transaccion existente) : this()
         {
             _esEdicion = true;
             Transaccion = existente;
+
+            // Carga los datos de la transacción en los controles del formulario.
             CargarDatos();
         }
 
+        // Configura los controles del formulario con valores iniciales:
+        // - Carga los tipos (Ingreso / Gasto)
+        // - Coloca la fecha de hoy
+        // - Llena el combo de categorías activas
         private void InicializarControles()
         {
-            // Tipo
+            // Tipo de transacción
             cboTipo.Items.Clear();
             cboTipo.Items.Add("Ingreso");
             cboTipo.Items.Add("Gasto");
-            cboTipo.SelectedIndex = 0;
+            cboTipo.SelectedIndex = 0; // Por defecto, "Ingreso"
 
+            // Fecha por defecto = hoy
             dtpFecha.Value = DateTime.Today;
 
-            // Categorías activas
+            // Cargar categorías activas desde el servicio
             var categorias = _categoriaService.ObtenerTodo()
                                               .Where(c => c.Activa)
                                               .ToList();
 
+            // Enlazar la lista de categorías al ComboBox
             cboCategoria.DataSource = categorias;
-            cboCategoria.DisplayMember = "Nombre";
-            cboCategoria.ValueMember = "IdCategoria";
+            cboCategoria.DisplayMember = "Nombre";       // Lo que muestra
+            cboCategoria.ValueMember = "IdCategoria";    // Valor interno
 
+            // Si no hay categorías activas, se avisa al usuario
             if (categorias.Count == 0)
             {
                 MessageBox.Show("No hay categorías activas. Cree al menos una en el menú de Categorías.",
@@ -62,6 +79,8 @@ namespace GastoSmart.Formularios
             }
         }
 
+        // Carga los datos de una transacción existente en los controles,
+        // solo se usa en modo edición.
         private void CargarDatos()
         {
             if (Transaccion == null) return;
@@ -71,28 +90,36 @@ namespace GastoSmart.Formularios
             txtMonto.Text = Transaccion.Monto.ToString("0.00");
             txtDescripcion.Text = Transaccion.Descripcion;
 
+            // Selecciona la categoría correspondiente en el combo
             if (Transaccion.IdCategoria > 0)
             {
                 cboCategoria.SelectedValue = Transaccion.IdCategoria;
             }
         }
 
+        // Botón Aceptar:
+        // - Valida la información
+        // - Copia los datos de los controles al objeto Transaccion
+        // - Devuelve DialogResult.OK al formulario padre
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            // Si falla alguna validación, detenemos el proceso.
             if (!ValidarEntradas())
                 return;
 
+            // Si es nueva transacción, creamos la instancia.
             if (Transaccion == null)
             {
                 Transaccion = new Transaccion();
             }
 
+            // Transferimos los valores desde los controles al objeto Transaccion.
             Transaccion.Fecha = dtpFecha.Value.Date;
             Transaccion.Tipo = cboTipo.SelectedItem?.ToString() ?? "Gasto";
             Transaccion.Monto = decimal.Parse(txtMonto.Text, CultureInfo.InvariantCulture);
             Transaccion.Descripcion = txtDescripcion.Text.Trim();
 
-           
+            // Obtener categoría seleccionada desde el ComboBox
             if (cboCategoria.SelectedItem is Categoria categoriaSeleccionada)
             {
                 Transaccion.IdCategoria = categoriaSeleccionada.IdCategoria;
@@ -104,12 +131,18 @@ namespace GastoSmart.Formularios
                 Transaccion.NombreCategoria = string.Empty;
             }
 
+            // Indicamos que todo salió bien
             DialogResult = DialogResult.OK;
             Close();
         }
 
+
+        // Validación básica de campos:
+        // - El monto debe existir, ser numérico y mayor que 0
+        // - Debe haberse seleccionado una categoría
         private bool ValidarEntradas()
         {
+            // Validar monto vacío
             if (string.IsNullOrWhiteSpace(txtMonto.Text))
             {
                 MessageBox.Show("Ingrese un monto.", "Aviso",
@@ -118,6 +151,7 @@ namespace GastoSmart.Formularios
                 return false;
             }
 
+            // Validar formato y valor del monto
             if (!decimal.TryParse(txtMonto.Text, NumberStyles.Number,
                 CultureInfo.InvariantCulture, out decimal monto) || monto <= 0)
             {
@@ -127,6 +161,7 @@ namespace GastoSmart.Formularios
                 return false;
             }
 
+            // Validar que el usuario haya seleccionado una categoría
             if (cboCategoria.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione una categoría.", "Aviso",
@@ -135,19 +170,16 @@ namespace GastoSmart.Formularios
                 return false;
             }
 
-            return true;
+            return true; // Todo correcto
         }
 
+        // Botón Cancelar:
+        // - Cierra el formulario sin guardar cambios.
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel; // El formulario padre sabrá que se canceló
             Close();
         }
 
-        private void FrmTransaccionDetalle_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
-

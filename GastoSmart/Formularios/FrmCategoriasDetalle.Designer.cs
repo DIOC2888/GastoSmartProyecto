@@ -91,7 +91,6 @@ namespace GastoSmart.Formularios
             txtDescripcionCategoria.ScrollBars = ScrollBars.Both;
             txtDescripcionCategoria.Size = new Size(221, 51);
             txtDescripcionCategoria.TabIndex = 5;
-            txtDescripcionCategoria.TextChanged += txtDescripcionCategoria_TextChanged;
             // 
             // chkActiva
             // 
@@ -139,7 +138,6 @@ namespace GastoSmart.Formularios
             Controls.Add(NombreCategoria);
             Name = "FrmCategoriasDetalle";
             Text = "FrmCategorias";
-            Load += FrmCategorias_Load;
             ResumeLayout(false);
             PerformLayout();
         }

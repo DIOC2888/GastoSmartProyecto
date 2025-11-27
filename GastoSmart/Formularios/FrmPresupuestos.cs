@@ -16,5 +16,10 @@ namespace GastoSmart.Formularios
         {
             InitializeComponent();
         }
+
+        private void FrmPresupuestos_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace GastoSmart.Models
 {
-    // Configuración del presupuesto global del usuario.
+    // Modelo que guarda la configuración del presupuesto global mensual del usuario.
     public class PresupuestoGlobal
     {
-        // Monto máximo que el usuario quiere gastar en el mes.
+        // Límite total de gasto permitido en el mes.
         public decimal MontoMensual { get; set; } = 0m;
 
-        // Umbral de alerta mensual (porcentaje del presupuesto, ej: 90).
+        // Porcentaje del presupuesto mensual en el que debe aparecer una alerta.
         public decimal UmbralAlertaPorcentaje { get; set; } = 90m;
 
-        // Umbral de alerta diaria (porcentaje del presupuesto, ej: 20).
+        // Porcentaje del presupuesto mensual que, si se gasta en un solo día, genera alerta.
         public decimal UmbralDiarioPorcentaje { get; set; } = 20m;
     }
-
 }
