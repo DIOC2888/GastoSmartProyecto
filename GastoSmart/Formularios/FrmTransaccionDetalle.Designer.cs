@@ -165,6 +165,7 @@
             Controls.Add(lblFecha);
             Name = "FrmTransaccionDetalle";
             Text = "Transaccion detalle";
+            Load += FrmTransaccionDetalle_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -221,6 +221,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "FrmReportes";
             Text = "Reportes";
+            Load += FrmReportes_Load;
             ((System.ComponentModel.ISupportInitialize)dgvReporte).EndInit();
             ResumeLayout(false);
             PerformLayout();

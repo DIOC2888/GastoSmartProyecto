@@ -33,7 +33,6 @@ namespace GastoSmart
             FrmTransacciones frm = new FrmTransacciones();
 
             //Suscripción al evento FormClosed del formulario FrmTransacciones
-            //Explicación:
             //Cuando el formulario de transacciones se cierre, se volverán a calcular los totales del menú principal.
             //Esto permite que si se agrega, edita o elimina una transacción, el saldo actual se actualice automáticamente.
             frm.FormClosed += (s, args) => ActualizarTotales();
@@ -63,7 +62,7 @@ namespace GastoSmart
 
         private void btnReportes_Click(object sender, EventArgs e)
         {
-            //Formulario donde se generan reportes y exportaciones (CSV, PDF, XLSX según lo que agreguemos)
+            //Formulario donde se generan reportes y exportaciones (CSV, PDF)
             using var frm = new FrmReportes();
             frm.ShowDialog();
         }
@@ -91,10 +90,15 @@ namespace GastoSmart
             //Obtener el monto mensual del presupuesto configurado por el usuario
             var presupuesto = _presupuestoService.ObtenerPresupuesto().MontoMensual;
 
-            //Actualizar textos visibles en el formulario principal con formato monetario (C2 → moneda con 2 decimales)
+            //Actualizar textos visibles en el formulario principal con formato monetario 
             lblSaldoActual.Text = $"Saldo Actual: {balance:C2}";
             lblPresupuesto.Text = $"Presupuesto: {presupuesto:C2}";
             lblMontoGastado.Text = $"Monto Gastado: {totalGastos:C2}";
+        }
+
+        private void FrmMenuPrincipal_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

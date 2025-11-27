@@ -14,7 +14,7 @@ namespace GastoSmart.Formularios
 {
     public partial class FrmCategoriasDetalle : Form
     {
-        //Objeto Categoría que será devuelto al formulario padre
+       
         //Se usa en modo "Nueva" y "Editar"
         public Categoria Categoria { get; private set; } = null!;
 
@@ -87,7 +87,6 @@ namespace GastoSmart.Formularios
             Categoria.Tipo = cboTipo.SelectedItem?.ToString() ?? "Gasto"; //Valor por defecto
             Categoria.Activa = chkActiva.Checked;
 
-            //Indicamos al formulario padre que todo salió bien
             DialogResult = DialogResult.OK;
 
             //Cerramos esta ventana
@@ -123,10 +122,13 @@ namespace GastoSmart.Formularios
         //Botón que cancela la operación sin guardar
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel; //Indica al padre que no se guardó nada
+            DialogResult = DialogResult.Cancel; //Indica que no se guardó nada
             Close();
         }
 
+        private void FrmCategoriasDetalle_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

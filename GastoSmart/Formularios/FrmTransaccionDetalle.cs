@@ -181,5 +181,9 @@ namespace GastoSmart.Formularios
             Close();
         }
 
+        private void FrmTransaccionDetalle_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

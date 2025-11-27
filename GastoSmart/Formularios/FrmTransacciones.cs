@@ -33,9 +33,7 @@ namespace GastoSmart.Formularios
             CargarDatos();
         }
 
-        // --------------------------------------------------------------------
         // Configuración de columnas del DataGridView
-        // --------------------------------------------------------------------
         private void ConfigurarGrid()
         {
             dgvTransacciones.AutoGenerateColumns = false;
@@ -79,9 +77,7 @@ namespace GastoSmart.Formularios
             });
         }
 
-        // --------------------------------------------------------------------
         // Carga la lista de transacciones y rellena el nombre de la categoría
-        // --------------------------------------------------------------------
         private void CargarDatos()
         {
             var lista = _transaccionService.ObtenerTodo();
@@ -105,12 +101,9 @@ namespace GastoSmart.Formularios
 
             return (Transaccion)dgvTransacciones.CurrentRow.DataBoundItem;
         }
-
-        // --------------------------------------------------------------------
         // Método central: valida el gasto contra el presupuesto
         // y pregunta al usuario qué hacer según el resultado.
         // Devuelve true si se debe continuar con el guardado.
-        // --------------------------------------------------------------------
         private bool ConfirmarSegunPresupuesto(Transaccion t)
         {
             // Solo aplicamos reglas si es un GASTO
@@ -211,9 +204,9 @@ namespace GastoSmart.Formularios
             return true;
         }
 
-        // --------------------------------------------------------------------
+
         // Botón NUEVA transacción
-        // --------------------------------------------------------------------
+
         private void btnNueva_Click(object sender, EventArgs e)
         {
             using var frm = new FrmTransaccionDetalle();
@@ -231,11 +224,7 @@ namespace GastoSmart.Formularios
             _bindingSource.ResetBindings(false);
         }
 
-        // --------------------------------------------------------------------
         // Botón EDITAR transacción
-        // (por simplicidad, aquí NO se revalida contra el presupuesto,
-        //  pero se podría hacer si quisieras controlar también los cambios.)
-        // --------------------------------------------------------------------
         private void btnEditar_Click(object sender, EventArgs e)
         {
             var seleccionada = ObtenerSeleccionada();
@@ -265,16 +254,11 @@ namespace GastoSmart.Formularios
 
             var editada = frm.Transaccion;
 
-            // Aquí podríamos llamar a ConfirmarSegunPresupuesto(editada)
-            // pero implicaría considerar la diferencia entre montos anterior/nuevo.
-            // Por simplicidad de la versión actual, no se revalida al editar.
             _transaccionService.Actualizar(editada);
             _bindingSource.ResetBindings(false);
         }
 
-        // --------------------------------------------------------------------
         // Botón ELIMINAR transacción
-        // --------------------------------------------------------------------
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             var seleccionada = ObtenerSeleccionada();
@@ -298,16 +282,26 @@ namespace GastoSmart.Formularios
             _bindingSource.ResetBindings(false);
         }
 
-        // Formateo opcional de celdas (si tuvieras una columna especial de categoría)
+
         private void dgvTransacciones_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            // Verificamos si la columna actual es la columna especial "colCategoria".
+            // Esta columna no muestra directamente el IdCategoria, sino el nombre.
             if (dgvTransacciones.Columns[e.ColumnIndex].Name == "colCategoria")
             {
+                // Obtenemos la fila asociada al evento.
                 var fila = dgvTransacciones.Rows[e.RowIndex];
+
+                // DataBoundItem es el objeto real (Transaccion) enlazado a la fila.
                 if (fila.DataBoundItem is Transaccion trans)
                 {
+                    // Buscamos en el servicio la categoría correspondiente al IdCategoria.
                     var cat = _categoriaService.ObtenerPorId(trans.IdCategoria);
+
+                    // Si existe, mostramos su nombre; si no, mostramos un texto por defecto.
                     e.Value = cat?.Nombre ?? "(Sin categoría)";
+
+                    // Indicamos que ya aplicamos el formato y no es necesario que el grid lo modifique.
                     e.FormattingApplied = true;
                 }
             }
@@ -321,6 +315,11 @@ namespace GastoSmart.Formularios
         private void btnCerrar_Click_1(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void FrmTransacciones_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -153,6 +153,7 @@
             Controls.Add(logoGS);
             Name = "FrmMenuPrincipal";
             Text = "FrmMenuPrincipal";
+            Load += FrmMenuPrincipal_Load;
             ((System.ComponentModel.ISupportInitialize)logo).EndInit();
             ResumeLayout(false);
             PerformLayout();

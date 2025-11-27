@@ -216,29 +216,34 @@ namespace GastoSmart.Formularios
             CalcularTotales(listaFiltrada);
         }
 
-        //------------------------------------------------------------------------
+
         // Calcula totales del reporte: ingresos, gastos y balance
-        //------------------------------------------------------------------------
         private void CalcularTotales(List<Transaccion> lista)
         {
+            // Suma de todas las transacciones cuyo Tipo es "Ingreso".
+            // Se usa StringComparison.OrdinalIgnoreCase para ignorar mayúsc/minúsc.
             decimal totalIngresos = lista
+                //Filtra la lista. Solo deja las transacciones que sean Ingresos.
                 .Where(t => string.Equals(t.Tipo, "Ingreso", StringComparison.OrdinalIgnoreCase))
                 .Sum(t => t.Monto);
 
+            // Suma de todas las transacciones cuyo Tipo es "Gasto".
             decimal totalGastos = lista
+                //Filtra la lista. Solo deja las transacciones que sean Gastos
                 .Where(t => string.Equals(t.Tipo, "Gasto", StringComparison.OrdinalIgnoreCase))
                 .Sum(t => t.Monto);
 
+            // Diferencia entre ingresos y gastos.
             decimal balance = totalIngresos - totalGastos;
 
+            // Actualizamos las etiquetas del formulario con formato monetario.
             lblTotalIngresos.Text = $"Ingresos: {totalIngresos:C2}";
             lblTotalGastos.Text = $"Gastos: {totalGastos:C2}";
             lblBalance.Text = $"Balance: {balance:C2}";
         }
 
-        //------------------------------------------------------------------------
+
         // Exportación del Reporte a formato CSV compatible con Excel
-        //------------------------------------------------------------------------
         private void button1_Click(object sender, EventArgs e)
         {
             // Obtener datos mostrados en el grid
@@ -318,5 +323,9 @@ namespace GastoSmart.Formularios
             Close();
         }
 
+        private void FrmReportes_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

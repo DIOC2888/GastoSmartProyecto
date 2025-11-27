@@ -19,29 +19,7 @@ namespace GastoSmart.Services
 
         public TransaccionService()
         {
-            // Datos de ejemplo cargados al iniciar la aplicación.
-            // (Podés eliminarlos cuando ya no sean necesarios.)
-            _transacciones.Add(new Transaccion
-            {
-                IdTransaccion = _nextId++,
-                IdUsuario = 1,
-                IdCategoria = 1,
-                Fecha = DateTime.Today,
-                Tipo = "Gasto",
-                Monto = 120.50m,
-                Descripcion = "Almuerzo"
-            });
 
-            _transacciones.Add(new Transaccion
-            {
-                IdTransaccion = _nextId++,
-                IdUsuario = 1,
-                IdCategoria = 2,
-                Fecha = DateTime.Today,
-                Tipo = "Ingreso",
-                Monto = 3000m,
-                Descripcion = "Beca"
-            });
         }
 
         // Devuelve todas las transacciones registradas.

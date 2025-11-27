@@ -130,6 +130,7 @@
             Controls.Add(label1);
             Name = "FrmPresupuestoGlobal";
             Text = "FrmPresupuestoGlobal";
+            Load += FrmPresupuestoGlobal_Load;
             ((System.ComponentModel.ISupportInitialize)nudUmbralMensual).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudMontoMensual).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudUmbralDiario).EndInit();

@@ -205,5 +205,9 @@ namespace GastoSmart.Formularios
             Close();
         }
 
+        private void FrmCategorias_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

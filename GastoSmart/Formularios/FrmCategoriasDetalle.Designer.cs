@@ -138,6 +138,7 @@ namespace GastoSmart.Formularios
             Controls.Add(NombreCategoria);
             Name = "FrmCategoriasDetalle";
             Text = "FrmCategorias";
+            Load += FrmCategoriasDetalle_Load;
             ResumeLayout(false);
             PerformLayout();
         }

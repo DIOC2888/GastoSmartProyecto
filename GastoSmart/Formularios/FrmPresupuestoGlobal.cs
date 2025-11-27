@@ -92,5 +92,9 @@ namespace GastoSmart.Formularios
             Close();
         }
 
+        private void FrmPresupuestoGlobal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
