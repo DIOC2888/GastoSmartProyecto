@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             logoGS = new Label();
-            lblBienvenida = new Label();
+            lblBienvenido = new Label();
             lblSaldoActual = new Label();
             lblPresupuesto = new Label();
             lblMontoGastado = new Label();
@@ -50,14 +50,14 @@
             logoGS.TabIndex = 0;
             logoGS.Text = "GastoSmart";
             // 
-            // lblBienvenida
+            // lblBienvenido
             // 
-            lblBienvenida.AutoSize = true;
-            lblBienvenida.Location = new Point(636, 9);
-            lblBienvenida.Name = "lblBienvenida";
-            lblBienvenida.Size = new Size(95, 20);
-            lblBienvenida.TabIndex = 1;
-            lblBienvenida.Text = "Bienvenid@, ";
+            lblBienvenido.AutoSize = true;
+            lblBienvenido.Location = new Point(636, 9);
+            lblBienvenido.Name = "lblBienvenido";
+            lblBienvenido.Size = new Size(95, 20);
+            lblBienvenido.TabIndex = 1;
+            lblBienvenido.Text = "Bienvenid@, ";
             // 
             // lblSaldoActual
             // 
@@ -71,7 +71,7 @@
             // lblPresupuesto
             // 
             lblPresupuesto.AutoSize = true;
-            lblPresupuesto.Location = new Point(370, 111);
+            lblPresupuesto.Location = new Point(367, 111);
             lblPresupuesto.Name = "lblPresupuesto";
             lblPresupuesto.Size = new Size(89, 20);
             lblPresupuesto.TabIndex = 3;
@@ -80,7 +80,7 @@
             // lblMontoGastado
             // 
             lblMontoGastado.AutoSize = true;
-            lblMontoGastado.Location = new Point(546, 111);
+            lblMontoGastado.Location = new Point(619, 111);
             lblMontoGastado.Name = "lblMontoGastado";
             lblMontoGastado.Size = new Size(112, 20);
             lblMontoGastado.TabIndex = 4;
@@ -149,7 +149,7 @@
             Controls.Add(lblMontoGastado);
             Controls.Add(lblPresupuesto);
             Controls.Add(lblSaldoActual);
-            Controls.Add(lblBienvenida);
+            Controls.Add(lblBienvenido);
             Controls.Add(logoGS);
             Name = "FrmMenuPrincipal";
             Text = "FrmMenuPrincipal";
@@ -162,7 +162,7 @@
         #endregion
 
         private Label logoGS;
-        private Label lblBienvenida;
+        private Label lblBienvenido;
         private Label lblSaldoActual;
         private Label lblPresupuesto;
         private Label lblMontoGastado;

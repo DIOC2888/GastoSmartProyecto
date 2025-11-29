@@ -1,16 +1,28 @@
+using GastoSmart.Formularios;
+using System;
+using System.Windows.Forms;
+
 namespace GastoSmart
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // 1. Mostrar Login
+            using (var login = new FrmLogin())
+            {
+                if (login.ShowDialog() != DialogResult.OK)
+                {
+                    // Si cancelan el login, se cierra la app
+                    return;
+                }
+            }
+
+            // 2. Si el login fue exitoso, abrimos el menú principal
             Application.Run(new FrmMenuPrincipal());
         }
     }

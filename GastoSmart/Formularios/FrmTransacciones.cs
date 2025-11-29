@@ -38,6 +38,8 @@ namespace GastoSmart.Formularios
         {
             dgvTransacciones.AutoGenerateColumns = false;
             dgvTransacciones.Columns.Clear();
+
+            // MUY IMPORTANTE: nada de AutoSizeColumnsMode = Fill
             dgvTransacciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
             dgvTransacciones.Columns.Add(new DataGridViewTextBoxColumn
@@ -69,12 +71,15 @@ namespace GastoSmart.Formularios
                 Width = 140
             });
 
+            // ANTES: AutoSizeMode = Fill  → eso es lo que da problemas
             dgvTransacciones.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Descripcion",
                 HeaderText = "Descripción",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                Width = 250 // un ancho fijo razonable
             });
+
+            dgvTransacciones.DataSource = _bindingSource;
         }
 
         // Carga la lista de transacciones y rellena el nombre de la categoría

@@ -23,7 +23,11 @@ namespace GastoSmart
         public FrmMenuPrincipal()
         {
             InitializeComponent();
-
+            // Mostrar nombre del usuario logueado
+            if (AppServices.UsuarioActual != null)
+            {
+                lblBienvenido.Text = $"Bienvenid@, {AppServices.UsuarioActual.Nombre}";
+            }
             //Al iniciar el menú principal se calculan los totales actuales (Saldo, Presupuesto, Gastos)
             ActualizarTotales();
         }
@@ -92,8 +96,10 @@ namespace GastoSmart
 
             //Actualizar textos visibles en el formulario principal con formato monetario 
             lblSaldoActual.Text = $"Saldo Actual: {balance:C2}";
-            lblPresupuesto.Text = $"Presupuesto: {presupuesto:C2}";
+            lblPresupuesto.Text = $"Presupuesto Mensual: {presupuesto:C2}";
             lblMontoGastado.Text = $"Monto Gastado: {totalGastos:C2}";
+            lblBienvenido.Text = $"Bienvenid@, {AppServices.UsuarioActual.Nombre}";
+
         }
 
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
