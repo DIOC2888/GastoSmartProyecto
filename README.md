@@ -65,3 +65,49 @@
 | - El grid usa una proyección LINQ para mostrar NombreCategoria y guarda la referencia |
 | original para poder editar/eliminar correctamente. |
 +--------------------------------------------------------------------------------------------+
+| Presupuesto Global |
+| - Configuraciones: monto mensual, umbral mensual de alerta (%) y umbral diario (%) |
+| - Antes de aceptar un gasto, se ejecuta ValidarGasto(Transaccion) que puede devolver: |
+| * SuperaPresupuesto |
+| * SuperaUmbralMensual |
+| * SuperaUmbralDiario |
+| * Ok |
+| - Permite detectar y (futuro) mostrar alertas visuales al usuario. |
++--------------------------------------------------------------------------------------------+
+| Reportes |
+| - Filtros disponibles: rango de fechas, tipo (Ingreso/Gasto/Todos), categoría (Todas) |
+| - Datos que muestra: fecha, tipo, categoría, monto, descripción |
+| - Totales: total ingresos, total gastos y balance del periodo. |
+| - Exportación: permite exportar a CSV (compatible con Excel). |
++--------------------------------------------------------------------------------------------+
+| Persistencia de datos |
+| Archivos JSON usados (ubicación relativa al ejecutable): |
+| - usuarios.json |
+| - categorias.json |
+| - transacciones.json |
+| - presupuesto.json |
+| Mecanismo: DataStorageService carga al iniciar y guarda al salir para mantener los datos. |
++--------------------------------------------------------------------------------------------+
+| Flujo general de uso (rápido) |
+| 1) Iniciar sesión. |
+| 2) Revisar indicadores en el menú principal. |
+| 3) Crear/editar categorías según necesites. |
+| 4) Registrar transacciones asignándolas a una categoría. |
+| 5) Consultar reportes y exportarlos si necesitas análisis externo. |
+| 6) Configurar presupuesto global y aprovechar las validaciones/alertas. |
++--------------------------------------------------------------------------------------------+
+| Buenas prácticas y recomendaciones |
+| - Crea primero las categorías antes de registrar transacciones para evitar errores. |
+| - Mantén nombres de categorías claros y no duplicados. |
+| - Revisa el archivo presupuesto.json si vas a probar alertas. |
++--------------------------------------------------------------------------------------------+
+| Posibles problemas comunes & soluciones rápidas |
+| - “No hay categorías disponibles” → crea al menos una categoría activa (Ingreso o Gasto). |
+| - “Error al parsear monto” → asegúrate de usar punto/coma según la cultura; revisa validación. |
+| - “Datos no persisten” → confirma que la app tiene permisos para escribir archivos JSON; |
+| verifica la ruta donde se guarda (junto al exe). |
++--------------------------------------------------------------------------------------------+
+| Última nota |
+| Este README está pensado para el usuario final y para miembros del equipo que necesiten una |
+| guía rápida de uso 
++--------------------------------------------------------------------------------------------+
