@@ -1,12 +1,10 @@
 ﻿using GastoSmart.Models;
 using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 
 namespace GastoSmart.Services
 {
-    // Estados posibles al evaluar un nuevo gasto contra el presupuesto.
     public enum EstadoPresupuesto
     {
         Ok,
@@ -15,7 +13,6 @@ namespace GastoSmart.Services
         SuperaPresupuesto
     }
 
-    // Resultado de la validación de un gasto contra el presupuesto.
     public class ResultadoPresupuesto
     {
         public EstadoPresupuesto Estado { get; set; } = EstadoPresupuesto.Ok;
@@ -29,24 +26,67 @@ namespace GastoSmart.Services
     {
         private readonly TransaccionService _transaccionService;
 
-        // Presupuesto actual en memoria
-        private readonly PresupuestoGlobal _presupuesto = new();
-
-        // Archivo donde se guarda la config del presupuesto
-        private readonly string _rutaArchivo = "presupuesto.txt";
+        // Presupuesto en memoria para el usuario actual
+        private PresupuestoGlobal _presupuesto = new();
 
         public PresupuestoService(TransaccionService transaccionService)
         {
             _transaccionService = transaccionService;
-
-            // Al crear el servicio, intentamos cargar la configuración previa
-            CargarDesdeArchivo();
         }
 
-        // Devuelve el presupuesto actual (para formularios)
-        public PresupuestoGlobal ObtenerPresupuesto() => _presupuesto;
+        private string ObtenerRutaArchivo()
+        {
+            int idUsuario = AppServices.UsuarioActual?.IdUsuario ?? 0;
 
-        // Configura y guarda el presupuesto en disco
+            // Si no hay usuario, usamos un archivo general (opcional)
+            string nombreArchivo = (idUsuario == 0)
+                ? "presupuesto_global.json"
+                : $"presupuesto_{idUsuario}.json";
+
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nombreArchivo);
+        }
+
+        private void CargarDesdeArchivo()
+        {
+            string ruta = ObtenerRutaArchivo();
+
+            if (!File.Exists(ruta))
+                return;
+
+            try
+            {
+                var json = File.ReadAllText(ruta);
+                var p = System.Text.Json.JsonSerializer.Deserialize<PresupuestoGlobal>(json);
+                if (p != null)
+                    _presupuesto = p;
+            }
+            catch
+            {
+                // Ignoramos errores de carga.
+            }
+        }
+
+        private void GuardarEnArchivo()
+        {
+            string ruta = ObtenerRutaArchivo();
+
+            var opciones = new System.Text.Json.JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            var json = System.Text.Json.JsonSerializer.Serialize(_presupuesto, opciones);
+            File.WriteAllText(ruta, json);
+        }
+
+        public PresupuestoGlobal ObtenerPresupuesto()
+        {
+            // Siempre que se pida el presupuesto, intentamos cargar
+            // el del usuario actual desde archivo.
+            CargarDesdeArchivo();
+            return _presupuesto;
+        }
+
         public void Configurar(decimal montoMensual, decimal umbralAlerta, decimal umbralDiario)
         {
             _presupuesto.MontoMensual = montoMensual;
@@ -56,66 +96,15 @@ namespace GastoSmart.Services
             GuardarEnArchivo();
         }
 
-        // ------------------ PERSISTENCIA DEL PRESUPUESTO ------------------
-
-        private void GuardarEnArchivo()
-        {
-            try
-            {
-                // Guardamos en una sola línea: monto|umbralMensual|umbralDiario
-                string linea = string.Join("|",
-                    _presupuesto.MontoMensual.ToString(CultureInfo.InvariantCulture),
-                    _presupuesto.UmbralAlertaPorcentaje.ToString(CultureInfo.InvariantCulture),
-                    _presupuesto.UmbralDiarioPorcentaje.ToString(CultureInfo.InvariantCulture)
-                );
-
-                File.WriteAllText(_rutaArchivo, linea);
-            }
-            catch (Exception ex)
-            {
-                // Para no romper la app, solo lo mostramos en consola
-                Console.WriteLine($"Error al guardar presupuesto: {ex.Message}");
-            }
-        }
-
-        private void CargarDesdeArchivo()
-        {
-            if (!File.Exists(_rutaArchivo))
-                return;
-
-            try
-            {
-                var contenido = File.ReadAllText(_rutaArchivo);
-                if (string.IsNullOrWhiteSpace(contenido))
-                    return;
-
-                var partes = contenido.Split('|');
-                if (partes.Length < 3)
-                    return;
-
-                if (decimal.TryParse(partes[0], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto))
-                    _presupuesto.MontoMensual = monto;
-
-                if (decimal.TryParse(partes[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var umbralMensual))
-                    _presupuesto.UmbralAlertaPorcentaje = umbralMensual;
-
-                if (decimal.TryParse(partes[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var umbralDiario))
-                    _presupuesto.UmbralDiarioPorcentaje = umbralDiario;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error al cargar presupuesto: {ex.Message}");
-            }
-        }
-
-        // ------------------- ValidarGasto (igual que ya tenías) -------------------
-
         public ResultadoPresupuesto ValidarGasto(Transaccion gasto)
         {
             if (!string.Equals(gasto.Tipo, "Gasto", StringComparison.OrdinalIgnoreCase))
             {
                 return new ResultadoPresupuesto { Estado = EstadoPresupuesto.Ok };
             }
+
+            // Aseguramos que el presupuesto en memoria esté sincronizado con el archivo.
+            CargarDesdeArchivo();
 
             var resultado = new ResultadoPresupuesto();
 

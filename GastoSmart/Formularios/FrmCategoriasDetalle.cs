@@ -18,15 +18,13 @@ namespace GastoSmart.Formularios
         //Se usa en modo "Nueva" y "Editar"
         public Categoria Categoria { get; private set; } = null!;
 
-        //Indica si el formulario está en modo edición
-        private readonly bool _esEdicion;
+
 
         public FrmCategoriasDetalle()
         {
             InitializeComponent();
 
             //Este formulario está siendo usado para crear una nueva categoría
-            _esEdicion = false;
 
             //Inicializa los valores de los controles (combos, checks, etc.)
             InicializarControles();
@@ -36,7 +34,6 @@ namespace GastoSmart.Formularios
         //Se llama desde FrmCategorias al presionar "Editar"
         public FrmCategoriasDetalle(Categoria categoriaExistente) : this()
         {
-            _esEdicion = true;
             Categoria = categoriaExistente;
 
             //Carga los datos existentes en los controles del formulario

@@ -79,10 +79,10 @@ namespace GastoSmart.Formularios
 
             //Asignamos los datos al BindingSource
             _bindingSource.DataSource = lista;
-
             //El DataGridView mostrará automáticamente lo que contiene el BindingSource
             dgvCategorias.DataSource = _bindingSource;
         }
+
 
         private Categoria? ObtenerSeleccionada()
         {
@@ -96,17 +96,13 @@ namespace GastoSmart.Formularios
 
         private void btnNueva_Click(object sender, EventArgs e)
         {
-            //Abrimos el formulario de detalles en modo "Nueva Categoría"
             using var frm = new FrmCategoriasDetalle();
 
-            //Si el usuario cierra con Cancelar, salimos y no hacemos nada
             if (frm.ShowDialog() != DialogResult.OK)
                 return;
 
-            //Recibimos la categoría llena desde el formulario hijo
             var categoria = frm.Categoria;
 
-            //Validación: nombre duplicado
             if (_categoriaService.NombreExiste(categoria.Nombre))
             {
                 MessageBox.Show("Ya existe una categoría con ese nombre.",
@@ -114,19 +110,15 @@ namespace GastoSmart.Formularios
                 return;
             }
 
-            //Agregamos la nueva categoría al servicio
             _categoriaService.Agregar(categoria);
 
-            //Actualizamos la tabla
-            _bindingSource.ResetBindings(false);
+            // ANTES: _bindingSource.ResetBindings(false);
+            CargarDatos();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            //Obtenemos la categoría seleccionada
             var seleccionada = ObtenerSeleccionada();
-
-            //Si el usuario no seleccionó nada, mostramos aviso
             if (seleccionada == null)
             {
                 MessageBox.Show("Seleccione una categoría.", "Aviso",
@@ -134,8 +126,6 @@ namespace GastoSmart.Formularios
                 return;
             }
 
-            //Creamos una copia para evitar modificar la categoría original
-            //hasta que el usuario confirme los cambios
             var copia = new Categoria
             {
                 IdCategoria = seleccionada.IdCategoria,
@@ -146,16 +136,13 @@ namespace GastoSmart.Formularios
                 Activa = seleccionada.Activa
             };
 
-            //Abrimos el formulario de edición con la categoría clonada
             using var frm = new FrmCategoriasDetalle(copia);
 
-            //Si cancela, no se hace nada
             if (frm.ShowDialog() != DialogResult.OK)
                 return;
 
             var editada = frm.Categoria;
 
-            //Validación: nombre duplicado (excepto si es la misma categoría)
             if (_categoriaService.NombreExiste(editada.Nombre, editada.IdCategoria))
             {
                 MessageBox.Show("Ya existe otra categoría con ese nombre.",
@@ -163,18 +150,15 @@ namespace GastoSmart.Formularios
                 return;
             }
 
-            //Aplicamos los cambios reales al servicio
             _categoriaService.Actualizar(editada);
 
-            //Actualizamos pantalla
-            _bindingSource.ResetBindings(false);
+            // ANTES: _bindingSource.ResetBindings(false);
+            CargarDatos();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            //Obtenemos categoría seleccionada
             var seleccionada = ObtenerSeleccionada();
-
             if (seleccionada == null)
             {
                 MessageBox.Show("Seleccione una categoría.", "Aviso",
@@ -182,7 +166,6 @@ namespace GastoSmart.Formularios
                 return;
             }
 
-            //Mensaje de confirmación
             var respuesta = MessageBox.Show(
                 $"¿Desea eliminar la categoría \"{seleccionada.Nombre}\"?",
                 "Confirmar eliminación",
@@ -192,11 +175,10 @@ namespace GastoSmart.Formularios
             if (respuesta != DialogResult.Yes)
                 return;
 
-            //Eliminar categoría desde el servicio
             _categoriaService.Eliminar(seleccionada.IdCategoria);
 
-            //Actualizar tabla
-            _bindingSource.ResetBindings(false);
+            // ANTES: _bindingSource.ResetBindings(false);
+            CargarDatos();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
