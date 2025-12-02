@@ -19,9 +19,6 @@ namespace GastoSmart.Formularios
         // Se devuelve al formulario padre cuando el usuario presiona Aceptar.
         public Transaccion Transaccion { get; private set; } = null!;
 
-        // Indica si el formulario está en modo edición (true) o nueva transacción (false).
-        private readonly bool _esEdicion;
-
         // Servicio para obtener las categorías y mostrarlas en el combo.
         private readonly CategoriaService _categoriaService = AppServices.CategoriaService;
 
@@ -29,7 +26,6 @@ namespace GastoSmart.Formularios
         public FrmTransaccionDetalle()
         {
             InitializeComponent();
-            _esEdicion = false;
 
             // Inicializamos las listas y valores por defecto de los controles.
             InicializarControles();
@@ -39,7 +35,6 @@ namespace GastoSmart.Formularios
         // Recibe una transacción que ya tiene datos.
         public FrmTransaccionDetalle(Transaccion existente) : this()
         {
-            _esEdicion = true;
             Transaccion = existente;
 
             // Carga los datos de la transacción en los controles del formulario.

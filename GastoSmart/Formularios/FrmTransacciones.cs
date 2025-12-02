@@ -221,15 +221,13 @@ namespace GastoSmart.Formularios
 
             var transaccion = frm.Transaccion;
 
-            // Antes de guardar, validamos contra el presupuesto
-            if (!ConfirmarSegunPresupuesto(transaccion))
-                return;
-
             _transaccionService.Agregar(transaccion);
-            _bindingSource.ResetBindings(false);
+
+            // ANTES: _bindingSource.ResetBindings(false);
+            // AHORA:
+            CargarDatos();
         }
 
-        // Botón EDITAR transacción
         private void btnEditar_Click(object sender, EventArgs e)
         {
             var seleccionada = ObtenerSeleccionada();
@@ -240,7 +238,6 @@ namespace GastoSmart.Formularios
                 return;
             }
 
-            // Creamos una copia para edición
             var copia = new Transaccion
             {
                 IdTransaccion = seleccionada.IdTransaccion,
@@ -260,10 +257,11 @@ namespace GastoSmart.Formularios
             var editada = frm.Transaccion;
 
             _transaccionService.Actualizar(editada);
-            _bindingSource.ResetBindings(false);
+
+            // ANTES: _bindingSource.ResetBindings(false);
+            CargarDatos();
         }
 
-        // Botón ELIMINAR transacción
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             var seleccionada = ObtenerSeleccionada();
@@ -284,9 +282,10 @@ namespace GastoSmart.Formularios
                 return;
 
             _transaccionService.Eliminar(seleccionada.IdTransaccion);
-            _bindingSource.ResetBindings(false);
-        }
 
+            // ANTES: _bindingSource.ResetBindings(false);
+            CargarDatos();
+        }
 
         private void dgvTransacciones_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
