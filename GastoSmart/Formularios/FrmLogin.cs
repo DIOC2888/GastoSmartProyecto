@@ -47,5 +47,10 @@ namespace GastoSmart.Formularios
             using var frm = new FrmRegistro();
             frm.ShowDialog();
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

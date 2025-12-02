@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRegistro));
             txtNombre = new TextBox();
             txtEmail = new TextBox();
             txtPassword = new TextBox();
@@ -38,43 +39,50 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(295, 102);
+            txtNombre.Location = new Point(354, 221);
+            txtNombre.Margin = new Padding(3, 2, 3, 2);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(204, 27);
+            txtNombre.Size = new Size(179, 23);
             txtNombre.TabIndex = 0;
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(295, 153);
+            txtEmail.Location = new Point(354, 249);
+            txtEmail.Margin = new Padding(3, 2, 3, 2);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(204, 27);
+            txtEmail.Size = new Size(179, 23);
             txtEmail.TabIndex = 1;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(295, 205);
+            txtPassword.Location = new Point(354, 277);
+            txtPassword.Margin = new Padding(3, 2, 3, 2);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(204, 27);
+            txtPassword.Size = new Size(179, 23);
             txtPassword.TabIndex = 2;
             // 
             // txtConfirmarPassword
             // 
-            txtConfirmarPassword.Location = new Point(295, 259);
+            txtConfirmarPassword.Location = new Point(354, 309);
+            txtConfirmarPassword.Margin = new Padding(3, 2, 3, 2);
             txtConfirmarPassword.Name = "txtConfirmarPassword";
             txtConfirmarPassword.PasswordChar = '*';
-            txtConfirmarPassword.Size = new Size(204, 27);
+            txtConfirmarPassword.Size = new Size(179, 23);
             txtConfirmarPassword.TabIndex = 3;
             // 
             // btnRegistrar
             // 
-            btnRegistrar.Location = new Point(295, 311);
+            btnRegistrar.Location = new Point(294, 357);
+            btnRegistrar.Margin = new Padding(3, 2, 3, 2);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.Size = new Size(94, 29);
+            btnRegistrar.Size = new Size(82, 22);
             btnRegistrar.TabIndex = 4;
             btnRegistrar.Text = "Registrar";
             btnRegistrar.UseVisualStyleBackColor = true;
@@ -82,9 +90,10 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(405, 311);
+            btnCancelar.Location = new Point(405, 357);
+            btnCancelar.Margin = new Padding(3, 2, 3, 2);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(94, 29);
+            btnCancelar.Size = new Size(82, 22);
             btnCancelar.TabIndex = 5;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
@@ -93,44 +102,57 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(211, 102);
+            label1.Location = new Point(257, 229);
             label1.Name = "label1";
-            label1.Size = new Size(67, 20);
+            label1.Size = new Size(54, 15);
             label1.TabIndex = 6;
             label1.Text = "Nombre:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(229, 156);
+            label2.Location = new Point(269, 257);
             label2.Name = "label2";
-            label2.Size = new Size(49, 20);
+            label2.Size = new Size(39, 15);
             label2.TabIndex = 7;
             label2.Text = "Email:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(205, 208);
+            label3.Location = new Point(251, 290);
             label3.Name = "label3";
-            label3.Size = new Size(73, 20);
+            label3.Size = new Size(60, 15);
             label3.TabIndex = 8;
             label3.Text = "Password:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(138, 262);
+            label4.Font = new Font("Segoe UI", 8F);
+            label4.Location = new Point(208, 328);
             label4.Name = "label4";
-            label4.Size = new Size(143, 20);
+            label4.Size = new Size(103, 13);
             label4.TabIndex = 9;
-            label4.Text = "Confirmar Password:";
+            label4.Text = "Confirm Password:";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = SystemColors.ControlLight;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(-36, -1);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(840, 476);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 10;
+            pictureBox1.TabStop = false;
             // 
             // FrmRegistro
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(798, 471);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -141,9 +163,12 @@
             Controls.Add(txtPassword);
             Controls.Add(txtEmail);
             Controls.Add(txtNombre);
+            Controls.Add(pictureBox1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "FrmRegistro";
             Text = "FrmRegistro";
             Load += FrmRegistro_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -160,5 +185,6 @@
         private Label label2;
         private Label label3;
         private Label label4;
+        private PictureBox pictureBox1;
     }
 }

@@ -327,5 +327,10 @@ namespace GastoSmart.Formularios
         {
 
         }
+
+        private void dgvReporte_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

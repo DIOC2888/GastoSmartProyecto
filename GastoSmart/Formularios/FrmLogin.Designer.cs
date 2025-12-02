@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             label1 = new Label();
             txtEmail = new TextBox();
             label2 = new Label();
@@ -42,90 +43,111 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(242, 154);
+            label1.BackColor = Color.White;
+            label1.Font = new Font("Arial Rounded MT Bold", 7F);
+            label1.ForeColor = Color.Black;
+            label1.Location = new Point(247, 236);
             label1.Name = "label1";
-            label1.Size = new Size(57, 20);
+            label1.Size = new Size(41, 11);
             label1.TabIndex = 0;
             label1.Text = "Correo:";
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(305, 151);
+            txtEmail.Location = new Point(339, 232);
+            txtEmail.Margin = new Padding(3, 2, 3, 2);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(172, 27);
+            txtEmail.Size = new Size(151, 23);
             txtEmail.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(213, 191);
+            label2.BackColor = Color.White;
+            label2.Font = new Font("Arial Rounded MT Bold", 7F);
+            label2.ForeColor = Color.Black;
+            label2.Location = new Point(241, 269);
             label2.Name = "label2";
-            label2.Size = new Size(86, 20);
+            label2.Size = new Size(64, 11);
             label2.TabIndex = 2;
             label2.Text = "Contraseña:";
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(305, 191);
+            txtPassword.Location = new Point(338, 266);
+            txtPassword.Margin = new Padding(3, 2, 3, 2);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(172, 27);
+            txtPassword.Size = new Size(151, 23);
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // btnIngresar
             // 
-            btnIngresar.Location = new Point(277, 249);
+            btnIngresar.BackColor = SystemColors.HotTrack;
+            btnIngresar.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnIngresar.ForeColor = SystemColors.ControlLightLight;
+            btnIngresar.Location = new Point(267, 310);
+            btnIngresar.Margin = new Padding(3, 2, 3, 2);
             btnIngresar.Name = "btnIngresar";
-            btnIngresar.Size = new Size(94, 29);
+            btnIngresar.Size = new Size(103, 24);
             btnIngresar.TabIndex = 4;
             btnIngresar.Text = "Ingresar";
-            btnIngresar.UseVisualStyleBackColor = true;
+            btnIngresar.UseVisualStyleBackColor = false;
             btnIngresar.Click += btnIngresar_Click;
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(397, 249);
+            btnCancelar.BackColor = SystemColors.HotTrack;
+            btnCancelar.ForeColor = SystemColors.ControlLightLight;
+            btnCancelar.Location = new Point(425, 311);
+            btnCancelar.Margin = new Padding(3, 2, 3, 2);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(94, 32);
+            btnCancelar.Size = new Size(102, 23);
             btnCancelar.TabIndex = 5;
             btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.LogoGastoSmart;
-            pictureBox1.Location = new Point(332, 12);
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(-1, -17);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(129, 120);
+            pictureBox1.Size = new Size(817, 501);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.ForeColor = SystemColors.HotTrack;
-            label3.Location = new Point(292, 312);
+            label3.BackColor = Color.White;
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(369, 351);
             label3.Name = "label3";
-            label3.Size = new Size(199, 20);
+            label3.Size = new Size(64, 15);
             label3.TabIndex = 7;
-            label3.Text = "¿No tienes cuenta? Crea una.";
+            label3.Text = "Registrarse";
             label3.Click += label3_Click;
             // 
             // FrmLogin
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = SystemColors.HotTrack;
+            ClientSize = new Size(814, 484);
             Controls.Add(label3);
-            Controls.Add(pictureBox1);
             Controls.Add(btnCancelar);
             Controls.Add(btnIngresar);
             Controls.Add(txtPassword);
             Controls.Add(label2);
             Controls.Add(txtEmail);
             Controls.Add(label1);
+            Controls.Add(pictureBox1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "FrmLogin";
             Text = "FrmLogin";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

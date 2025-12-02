@@ -326,5 +326,10 @@ namespace GastoSmart.Formularios
         {
 
         }
+
+        private void logo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

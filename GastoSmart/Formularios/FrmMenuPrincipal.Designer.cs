@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            logoGS = new Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMenuPrincipal));
             lblBienvenido = new Label();
             lblSaldoActual = new Label();
             lblPresupuesto = new Label();
@@ -41,107 +41,120 @@
             ((System.ComponentModel.ISupportInitialize)logo).BeginInit();
             SuspendLayout();
             // 
-            // logoGS
-            // 
-            logoGS.AutoSize = true;
-            logoGS.Location = new Point(25, 111);
-            logoGS.Name = "logoGS";
-            logoGS.Size = new Size(86, 20);
-            logoGS.TabIndex = 0;
-            logoGS.Text = "GastoSmart";
-            // 
             // lblBienvenido
             // 
             lblBienvenido.AutoSize = true;
-            lblBienvenido.Location = new Point(636, 9);
+            lblBienvenido.BackColor = Color.White;
+            lblBienvenido.ForeColor = Color.Black;
+            lblBienvenido.Location = new Point(449, 35);
             lblBienvenido.Name = "lblBienvenido";
-            lblBienvenido.Size = new Size(95, 20);
+            lblBienvenido.Size = new Size(76, 15);
             lblBienvenido.TabIndex = 1;
             lblBienvenido.Text = "Bienvenid@, ";
             // 
             // lblSaldoActual
             // 
             lblSaldoActual.AutoSize = true;
-            lblSaldoActual.Location = new Point(180, 111);
+            lblSaldoActual.BackColor = Color.White;
+            lblSaldoActual.ForeColor = Color.Black;
+            lblSaldoActual.Location = new Point(129, 83);
             lblSaldoActual.Name = "lblSaldoActual";
-            lblSaldoActual.Size = new Size(93, 20);
+            lblSaldoActual.Size = new Size(73, 15);
             lblSaldoActual.TabIndex = 2;
             lblSaldoActual.Text = "Saldo Actual";
             // 
             // lblPresupuesto
             // 
             lblPresupuesto.AutoSize = true;
-            lblPresupuesto.Location = new Point(367, 111);
+            lblPresupuesto.BackColor = Color.White;
+            lblPresupuesto.ForeColor = Color.Black;
+            lblPresupuesto.Location = new Point(307, 83);
             lblPresupuesto.Name = "lblPresupuesto";
-            lblPresupuesto.Size = new Size(89, 20);
+            lblPresupuesto.Size = new Size(72, 15);
             lblPresupuesto.TabIndex = 3;
             lblPresupuesto.Text = "Presupuesto";
             // 
             // lblMontoGastado
             // 
             lblMontoGastado.AutoSize = true;
-            lblMontoGastado.Location = new Point(619, 111);
+            lblMontoGastado.BackColor = Color.White;
+            lblMontoGastado.ForeColor = Color.Black;
+            lblMontoGastado.Location = new Point(449, 83);
             lblMontoGastado.Name = "lblMontoGastado";
-            lblMontoGastado.Size = new Size(112, 20);
+            lblMontoGastado.Size = new Size(89, 15);
             lblMontoGastado.TabIndex = 4;
             lblMontoGastado.Text = "Monto Gastado";
             // 
             // btnTransacciones
             // 
-            btnTransacciones.Location = new Point(138, 197);
+            btnTransacciones.BackColor = SystemColors.HotTrack;
+            btnTransacciones.ForeColor = Color.White;
+            btnTransacciones.Location = new Point(187, 161);
+            btnTransacciones.Margin = new Padding(3, 2, 3, 2);
             btnTransacciones.Name = "btnTransacciones";
-            btnTransacciones.Size = new Size(135, 29);
+            btnTransacciones.Size = new Size(100, 22);
             btnTransacciones.TabIndex = 5;
             btnTransacciones.Text = "Transacciones";
-            btnTransacciones.UseVisualStyleBackColor = true;
+            btnTransacciones.UseVisualStyleBackColor = false;
             btnTransacciones.Click += btnTransacciones_Click;
             // 
             // btnPresupuestos
             // 
-            btnPresupuestos.Location = new Point(138, 302);
+            btnPresupuestos.BackColor = SystemColors.HotTrack;
+            btnPresupuestos.ForeColor = Color.White;
+            btnPresupuestos.Location = new Point(409, 258);
+            btnPresupuestos.Margin = new Padding(3, 2, 3, 2);
             btnPresupuestos.Name = "btnPresupuestos";
-            btnPresupuestos.Size = new Size(135, 29);
+            btnPresupuestos.Size = new Size(97, 22);
             btnPresupuestos.TabIndex = 6;
             btnPresupuestos.Text = "Presupuestos";
-            btnPresupuestos.UseVisualStyleBackColor = true;
+            btnPresupuestos.UseVisualStyleBackColor = false;
             btnPresupuestos.Click += btnPresupuestos_Click;
             // 
             // btnReportes
             // 
-            btnReportes.Location = new Point(138, 267);
+            btnReportes.BackColor = SystemColors.HotTrack;
+            btnReportes.ForeColor = Color.White;
+            btnReportes.Location = new Point(410, 161);
+            btnReportes.Margin = new Padding(3, 2, 3, 2);
             btnReportes.Name = "btnReportes";
-            btnReportes.Size = new Size(135, 29);
+            btnReportes.Size = new Size(96, 22);
             btnReportes.TabIndex = 7;
             btnReportes.Text = "Reportes";
-            btnReportes.UseVisualStyleBackColor = true;
+            btnReportes.UseVisualStyleBackColor = false;
             btnReportes.Click += btnReportes_Click;
             // 
             // btnCategorias
             // 
-            btnCategorias.Location = new Point(138, 232);
+            btnCategorias.BackColor = SystemColors.Highlight;
+            btnCategorias.ForeColor = Color.White;
+            btnCategorias.Location = new Point(187, 257);
+            btnCategorias.Margin = new Padding(3, 2, 3, 2);
             btnCategorias.Name = "btnCategorias";
-            btnCategorias.Size = new Size(135, 29);
+            btnCategorias.Size = new Size(100, 22);
             btnCategorias.TabIndex = 8;
             btnCategorias.Text = "Categorias";
-            btnCategorias.UseVisualStyleBackColor = true;
+            btnCategorias.UseVisualStyleBackColor = false;
             btnCategorias.Click += btnCategorias_Click;
             // 
             // logo
             // 
-            logo.Image = Properties.Resources.LogoGastoSmart;
-            logo.Location = new Point(12, 9);
+            logo.BackColor = Color.Transparent;
+            logo.Image = (Image)resources.GetObject("logo.Image");
+            logo.Location = new Point(-10, 11);
+            logo.Margin = new Padding(3, 2, 3, 2);
             logo.Name = "logo";
-            logo.Size = new Size(111, 99);
+            logo.Size = new Size(721, 316);
             logo.SizeMode = PictureBoxSizeMode.Zoom;
             logo.TabIndex = 9;
             logo.TabStop = false;
             // 
             // FrmMenuPrincipal
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(logo);
+            BackColor = SystemColors.HotTrack;
+            ClientSize = new Size(700, 338);
             Controls.Add(btnCategorias);
             Controls.Add(btnReportes);
             Controls.Add(btnPresupuestos);
@@ -150,7 +163,8 @@
             Controls.Add(lblPresupuesto);
             Controls.Add(lblSaldoActual);
             Controls.Add(lblBienvenido);
-            Controls.Add(logoGS);
+            Controls.Add(logo);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "FrmMenuPrincipal";
             Text = "FrmMenuPrincipal";
             Load += FrmMenuPrincipal_Load;
@@ -160,8 +174,6 @@
         }
 
         #endregion
-
-        private Label logoGS;
         private Label lblBienvenido;
         private Label lblSaldoActual;
         private Label lblPresupuesto;
