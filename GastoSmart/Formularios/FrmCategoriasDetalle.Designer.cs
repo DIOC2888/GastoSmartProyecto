@@ -29,6 +29,7 @@ namespace GastoSmart.Formularios
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCategoriasDetalle));
             NombreCategoria = new Label();
             txtNombre = new TextBox();
             lblTipoCat = new Label();
@@ -38,12 +39,14 @@ namespace GastoSmart.Formularios
             chkActiva = new CheckBox();
             btnAceptar = new Button();
             btnCancelar = new Button();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // NombreCategoria
             // 
             NombreCategoria.AutoSize = true;
-            NombreCategoria.Location = new Point(132, 85);
+            NombreCategoria.Location = new Point(292, 176);
             NombreCategoria.Name = "NombreCategoria";
             NombreCategoria.Size = new Size(71, 20);
             NombreCategoria.TabIndex = 0;
@@ -51,7 +54,7 @@ namespace GastoSmart.Formularios
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(246, 85);
+            txtNombre.Location = new Point(389, 176);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(151, 27);
             txtNombre.TabIndex = 1;
@@ -59,7 +62,7 @@ namespace GastoSmart.Formularios
             // lblTipoCat
             // 
             lblTipoCat.AutoSize = true;
-            lblTipoCat.Location = new Point(161, 133);
+            lblTipoCat.Location = new Point(292, 217);
             lblTipoCat.Name = "lblTipoCat";
             lblTipoCat.Size = new Size(42, 20);
             lblTipoCat.TabIndex = 2;
@@ -69,7 +72,7 @@ namespace GastoSmart.Formularios
             // 
             cboTipo.FormattingEnabled = true;
             cboTipo.Items.AddRange(new object[] { "Ingreso", "Gasto" });
-            cboTipo.Location = new Point(246, 125);
+            cboTipo.Location = new Point(392, 214);
             cboTipo.Name = "cboTipo";
             cboTipo.Size = new Size(151, 28);
             cboTipo.TabIndex = 3;
@@ -77,7 +80,7 @@ namespace GastoSmart.Formularios
             // lblDescripcionCategoria
             // 
             lblDescripcionCategoria.AutoSize = true;
-            lblDescripcionCategoria.Location = new Point(109, 170);
+            lblDescripcionCategoria.Location = new Point(292, 280);
             lblDescripcionCategoria.Name = "lblDescripcionCategoria";
             lblDescripcionCategoria.Size = new Size(94, 20);
             lblDescripcionCategoria.TabIndex = 4;
@@ -85,7 +88,7 @@ namespace GastoSmart.Formularios
             // 
             // txtDescripcionCategoria
             // 
-            txtDescripcionCategoria.Location = new Point(246, 167);
+            txtDescripcionCategoria.Location = new Point(392, 259);
             txtDescripcionCategoria.Multiline = true;
             txtDescripcionCategoria.Name = "txtDescripcionCategoria";
             txtDescripcionCategoria.ScrollBars = ScrollBars.Both;
@@ -95,7 +98,7 @@ namespace GastoSmart.Formularios
             // chkActiva
             // 
             chkActiva.AutoSize = true;
-            chkActiva.Location = new Point(247, 224);
+            chkActiva.Location = new Point(292, 339);
             chkActiva.Name = "chkActiva";
             chkActiva.Size = new Size(139, 24);
             chkActiva.TabIndex = 6;
@@ -104,7 +107,7 @@ namespace GastoSmart.Formularios
             // 
             // btnAceptar
             // 
-            btnAceptar.Location = new Point(225, 283);
+            btnAceptar.Location = new Point(292, 391);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(94, 29);
             btnAceptar.TabIndex = 7;
@@ -114,19 +117,32 @@ namespace GastoSmart.Formularios
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(373, 285);
+            btnCancelar.BackColor = SystemColors.HotTrack;
+            btnCancelar.ForeColor = Color.White;
+            btnCancelar.Location = new Point(446, 391);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(94, 29);
             btnCancelar.TabIndex = 8;
             btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(-43, -37);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(934, 598);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 14;
+            pictureBox1.TabStop = false;
             // 
             // FrmCategoriasDetalle
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(834, 549);
             Controls.Add(btnCancelar);
             Controls.Add(btnAceptar);
             Controls.Add(chkActiva);
@@ -136,9 +152,11 @@ namespace GastoSmart.Formularios
             Controls.Add(lblTipoCat);
             Controls.Add(txtNombre);
             Controls.Add(NombreCategoria);
+            Controls.Add(pictureBox1);
             Name = "FrmCategoriasDetalle";
             Text = "FrmCategorias";
             Load += FrmCategoriasDetalle_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -155,5 +173,6 @@ namespace GastoSmart.Formularios
         private CheckBox chkActiva;
         private Button btnAceptar;
         private Button btnCancelar;
+        private PictureBox pictureBox1;
     }
 }

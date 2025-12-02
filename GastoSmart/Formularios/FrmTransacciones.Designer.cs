@@ -42,21 +42,20 @@
             // dgvTransacciones
             // 
             dgvTransacciones.AllowUserToAddRows = false;
+            dgvTransacciones.BackgroundColor = SystemColors.HotTrack;
             dgvTransacciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTransacciones.Location = new Point(76, 106);
-            dgvTransacciones.Margin = new Padding(3, 2, 3, 2);
+            dgvTransacciones.Location = new Point(78, 154);
             dgvTransacciones.Name = "dgvTransacciones";
             dgvTransacciones.RowHeadersWidth = 51;
-            dgvTransacciones.Size = new Size(523, 176);
+            dgvTransacciones.Size = new Size(598, 235);
             dgvTransacciones.TabIndex = 0;
             // 
             // btnNueva
             // 
             btnNueva.BackColor = Color.Transparent;
-            btnNueva.Location = new Point(107, 59);
-            btnNueva.Margin = new Padding(3, 2, 3, 2);
+            btnNueva.Location = new Point(122, 79);
             btnNueva.Name = "btnNueva";
-            btnNueva.Size = new Size(82, 22);
+            btnNueva.Size = new Size(94, 29);
             btnNueva.TabIndex = 1;
             btnNueva.Text = "Nueva";
             btnNueva.UseVisualStyleBackColor = false;
@@ -64,10 +63,9 @@
             // 
             // Editar
             // 
-            Editar.Location = new Point(281, 59);
-            Editar.Margin = new Padding(3, 2, 3, 2);
+            Editar.Location = new Point(321, 79);
             Editar.Name = "Editar";
-            Editar.Size = new Size(82, 22);
+            Editar.Size = new Size(94, 29);
             Editar.TabIndex = 2;
             Editar.Text = "Editar";
             Editar.UseVisualStyleBackColor = true;
@@ -75,10 +73,9 @@
             // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(475, 59);
-            btnEliminar.Margin = new Padding(3, 2, 3, 2);
+            btnEliminar.Location = new Point(543, 79);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(82, 22);
+            btnEliminar.Size = new Size(94, 29);
             btnEliminar.TabIndex = 3;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = true;
@@ -88,10 +85,9 @@
             // 
             btnCerrar.BackColor = SystemColors.HotTrack;
             btnCerrar.ForeColor = Color.White;
-            btnCerrar.Location = new Point(281, 296);
-            btnCerrar.Margin = new Padding(3, 2, 3, 2);
+            btnCerrar.Location = new Point(321, 395);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.Size = new Size(82, 22);
+            btnCerrar.Size = new Size(94, 29);
             btnCerrar.TabIndex = 4;
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = false;
@@ -101,10 +97,9 @@
             // 
             logo.BackColor = SystemColors.HotTrack;
             logo.Image = (Image)resources.GetObject("logo.Image");
-            logo.Location = new Point(-47, -15);
-            logo.Margin = new Padding(3, 2, 3, 2);
+            logo.Location = new Point(-54, -20);
             logo.Name = "logo";
-            logo.Size = new Size(743, 401);
+            logo.Size = new Size(849, 535);
             logo.SizeMode = PictureBoxSizeMode.Zoom;
             logo.TabIndex = 10;
             logo.TabStop = false;
@@ -112,17 +107,16 @@
             // 
             // FrmTransacciones
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.HotTrack;
-            ClientSize = new Size(686, 338);
+            ClientSize = new Size(784, 451);
             Controls.Add(btnCerrar);
             Controls.Add(btnEliminar);
             Controls.Add(Editar);
             Controls.Add(btnNueva);
             Controls.Add(dgvTransacciones);
             Controls.Add(logo);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "FrmTransacciones";
             Text = "FrmTransacciones";
             Load += FrmTransacciones_Load;

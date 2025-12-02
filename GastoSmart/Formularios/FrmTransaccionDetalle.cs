@@ -180,5 +180,10 @@ namespace GastoSmart.Formularios
         {
 
         }
+
+        private void lblTipo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
