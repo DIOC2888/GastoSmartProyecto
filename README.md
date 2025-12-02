@@ -1,0 +1,113 @@
++--------------------------------------------------------------------------------------------+
+| GastoSmart — README de Usuario |
++--------------------------------------------------------------------------------------------+
+| Resumen breve: |
+| GastoSmart es una aplicación de escritorio (Windows Forms) para gestionar finanzas |
+| personales: usuarios, categorías, transacciones, presupuestos y reportes. Los datos se |
+| guardan en JSON para persistencia entre sesiones. |
++--------------------------------------------------------------------------------------------+
+| 1) Qué encontrarás en este README |
+| - Visión general del sistema |
+| - Requisitos e instalación |
+| - Cómo iniciar sesión |
+| - Navegación y descripción de cada módulo |
+| - Flujo de uso típico |
+| - Persistencia de datos (archivos JSON) |
+| - Sugerencias de uso, problemas comunes y cómo contribuir |
++--------------------------------------------------------------------------------------------+
+| Requisitos mínimos (orientativo) |
+| - Windows con .NET/Runtime compatible con el proyecto WinForms. |
+| - Visual Studio (o compilador) para abrir/compilar el proyecto si trabajas con el código. |
+| - Si solo usarás el ejecutable: doble clic en el .exe generado. |
+| Nota: revisa el .csproj del repo para confirmar la versión exacta de .NET/Framework usada. |
++--------------------------------------------------------------------------------------------+
+| Cómo ejecutar |
+| 1. Abrir la solución/proyecto en Visual Studio. |
+| 2. Compilar (Build → Rebuild Solution). |
+| 3. Ejecutar (F5 o Start). |
+| 4. Si tienes solo artefactos: coloca los archivos JSON (si existen) junto al ejecutable. |
++--------------------------------------------------------------------------------------------+
+| Iniciar sesión (Gestión de Usuarios) |
+| - El sistema presenta un formulario de Login. |
+| - Las credenciales se validan mediante UsuarioService.Autenticar. |
+| - Si el login es válido: AppServices.UsuarioActual se establece y en el menú aparecerá |
+| “Bienvenid@, {Nombre}”. |
++--------------------------------------------------------------------------------------------+
+| Menú principal |
+| - Indicadores mostrados: |
+| * Saldo Actual = ingresos - gastos. |
+| * Presupuesto Mensual Configurado. |
+| * Monto Gastado en el mes. |
+| - Los valores se actualizan automáticamente cuando cierran formularios relevantes |
+| (ej. FrmTransacciones, FrmPresupuestoGlobal). |
+| - Botones principales: Transacciones, Categorías, Reportes, Presupuestos. |
++--------------------------------------------------------------------------------------------+
+| Módulo de Categorías |
+| Funcionalidad: |
+| - CRUD completo (Crear, Leer, Editar, Eliminar / Activar-Desactivar). |
+| - Cada categoría tiene: IdCategoria, IdUsuario, Nombre, Descripcion, Tipo (Ingreso/Gasto), |
+| Activa (bool). |
+| Validaciones: |
+| - No se permiten nombres duplicados (CategoriaService.NombreExiste). |
+| - No se permiten nombres vacíos. |
+| Uso en la app: |
+| - Solo las categorías activas se muestran al registrar transacciones. |
++--------------------------------------------------------------------------------------------+
+| Módulo de Transacciones |
+| Elementos de una transacción: Fecha, Tipo (Ingreso/Gasto), Monto, Descripción, Categoría. |
+| Funcionalidades: |
+| - Crear nuevas transacciones. |
+| - Editar transacciones (se trabaja sobre una copia para permitir cancelar). |
+| - Eliminar transacciones (con confirmación). |
+| - Visualizar listado en DataGridView con columnas: Fecha, Tipo, Monto (formato moneda), |
+| Categoría (se muestra el nombre) y Descripción. |
+| Implementación: |
+| - El grid usa una proyección LINQ para mostrar NombreCategoria y guarda la referencia |
+| original para poder editar/eliminar correctamente. |
++--------------------------------------------------------------------------------------------+
+| Presupuesto Global |
+| - Configuraciones: monto mensual, umbral mensual de alerta (%) y umbral diario (%) |
+| - Antes de aceptar un gasto, se ejecuta ValidarGasto(Transaccion) que puede devolver: |
+| * SuperaPresupuesto |
+| * SuperaUmbralMensual |
+| * SuperaUmbralDiario |
+| * Ok |
+| - Permite detectar y (futuro) mostrar alertas visuales al usuario. |
++--------------------------------------------------------------------------------------------+
+| Reportes |
+| - Filtros disponibles: rango de fechas, tipo (Ingreso/Gasto/Todos), categoría (Todas) |
+| - Datos que muestra: fecha, tipo, categoría, monto, descripción |
+| - Totales: total ingresos, total gastos y balance del periodo. |
+| - Exportación: permite exportar a CSV (compatible con Excel). |
++--------------------------------------------------------------------------------------------+
+| Persistencia de datos |
+| Archivos JSON usados (ubicación relativa al ejecutable): |
+| - usuarios.json |
+| - categorias.json |
+| - transacciones.json |
+| - presupuesto.json |
+| Mecanismo: DataStorageService carga al iniciar y guarda al salir para mantener los datos. |
++--------------------------------------------------------------------------------------------+
+| Flujo general de uso (rápido) |
+| 1) Iniciar sesión. |
+| 2) Revisar indicadores en el menú principal. |
+| 3) Crear/editar categorías según necesites. |
+| 4) Registrar transacciones asignándolas a una categoría. |
+| 5) Consultar reportes y exportarlos si necesitas análisis externo. |
+| 6) Configurar presupuesto global y aprovechar las validaciones/alertas. |
++--------------------------------------------------------------------------------------------+
+| Buenas prácticas y recomendaciones |
+| - Crea primero las categorías antes de registrar transacciones para evitar errores. |
+| - Mantén nombres de categorías claros y no duplicados. |
+| - Revisa el archivo presupuesto.json si vas a probar alertas. |
++--------------------------------------------------------------------------------------------+
+| Posibles problemas comunes & soluciones rápidas |
+| - “No hay categorías disponibles” → crea al menos una categoría activa (Ingreso o Gasto). |
+| - “Error al parsear monto” → asegúrate de usar punto/coma según la cultura; revisa validación. |
+| - “Datos no persisten” → confirma que la app tiene permisos para escribir archivos JSON; |
+| verifica la ruta donde se guarda (junto al exe). |
++--------------------------------------------------------------------------------------------+
+| Última nota |
+| Este README está pensado para el usuario final y para miembros del equipo que necesiten una |
+| guía rápida de uso 
++--------------------------------------------------------------------------------------------+
