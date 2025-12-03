@@ -14,8 +14,10 @@ namespace GastoSmart.Formularios
             InitializeComponent();
         }
 
+        // Evento del botón Registrar
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
+            // Obtener datos del formulario
             string nombre = txtNombre.Text.Trim();
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text.Trim();
@@ -28,7 +30,7 @@ namespace GastoSmart.Formularios
                     "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
+            // Verificar que las contraseñas coincidan
             if (password != confirmar)
             {
                 MessageBox.Show("Las contraseñas no coinciden.",

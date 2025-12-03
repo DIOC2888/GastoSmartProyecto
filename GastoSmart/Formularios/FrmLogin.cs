@@ -14,8 +14,10 @@ namespace GastoSmart.Formularios
             InitializeComponent();
         }
 
+        // Evento click del botón Ingresar
         private void btnIngresar_Click(object sender, EventArgs e)
         {
+            // Obtenemos los datos del formulario
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text.Trim();
 
@@ -44,6 +46,7 @@ namespace GastoSmart.Formularios
 
         private void label3_Click(object sender, EventArgs e)
         {
+            // Abrir el formulario de registro
             using var frm = new FrmRegistro();
             frm.ShowDialog();
         }

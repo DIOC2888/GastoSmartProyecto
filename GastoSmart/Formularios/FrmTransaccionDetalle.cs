@@ -78,8 +78,9 @@ namespace GastoSmart.Formularios
         // solo se usa en modo edición.
         private void CargarDatos()
         {
+            // Si no hay transacción, no hacemos nada.
             if (Transaccion == null) return;
-
+            // Transferimos los valores desde el objeto Transaccion a los controles.
             dtpFecha.Value = Transaccion.Fecha;
             cboTipo.SelectedItem = Transaccion.Tipo;
             txtMonto.Text = Transaccion.Monto.ToString("0.00");
@@ -117,11 +118,13 @@ namespace GastoSmart.Formularios
             // Obtener categoría seleccionada desde el ComboBox
             if (cboCategoria.SelectedItem is Categoria categoriaSeleccionada)
             {
+                // Asignar Id y Nombre de la categoría a la transacción
                 Transaccion.IdCategoria = categoriaSeleccionada.IdCategoria;
                 Transaccion.NombreCategoria = categoriaSeleccionada.Nombre;
             }
             else
             {
+                // No se seleccionó ninguna categoría válida
                 Transaccion.IdCategoria = 0;
                 Transaccion.NombreCategoria = string.Empty;
             }

@@ -58,6 +58,7 @@ namespace GastoSmart.Services
 
             try
             {
+                // Leer y deserializar la lista de usuarios desde el archivo
                 var json = File.ReadAllText(_rutaArchivo);
                 var lista = JsonSerializer.Deserialize<List<Usuario>>(json);
 
@@ -104,6 +105,7 @@ namespace GastoSmart.Services
         // REGISTRO: crea un nuevo usuario, lo agrega a la lista y guarda en archivo
         public Usuario Registrar(string nombre, string email, string password)
         {
+            // Asumimos que ya se verificó que el email no existe
             var nuevo = new Usuario
             {
                 IdUsuario = _nextId++,
@@ -112,16 +114,15 @@ namespace GastoSmart.Services
                 HashPassword = password,
                 FechaCreacion = DateTime.Now
             };
-
+            // Agregar a la lista en memoria
             _usuarios.Add(nuevo);
 
-            // Muy importante: guardar cambios en disco
+            // Muy importante guardar cambios en disco
             GuardarEnArchivo();
 
             return nuevo;
         }
-
-        // (Opcional) si querés obtener la lista de usuarios para depurar o administrar
+        // Devuelve todos los usuarios (útil para administración)
         public List<Usuario> ObtenerTodos()
         {
             return _usuarios.ToList();

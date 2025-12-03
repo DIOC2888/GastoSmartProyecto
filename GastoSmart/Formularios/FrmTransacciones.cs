@@ -14,7 +14,7 @@ namespace GastoSmart.Formularios
 {
     public partial class FrmTransacciones : Form
     {
-        // Servicio central de transacciones (CRUD en memoria)
+        // Servicio central de transacciones (CRUD en memoria + JSON)
         private readonly TransaccionService _transaccionService = AppServices.TransaccionService;
 
         // Servicio de categorías (para resolver nombres de categoría, etc.)
@@ -49,6 +49,7 @@ namespace GastoSmart.Formularios
                 Width = 90
             });
 
+            // Columna para el tipo (Ingreso/Gasto)
             dgvTransacciones.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Tipo",
@@ -56,6 +57,7 @@ namespace GastoSmart.Formularios
                 Width = 80
             });
 
+            // Columna del monto, formateado como moneda
             dgvTransacciones.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Monto",
@@ -64,6 +66,7 @@ namespace GastoSmart.Formularios
                 DefaultCellStyle = { Format = "C2" }
             });
 
+            // Columna para el nombre de la categoría
             dgvTransacciones.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "NombreCategoria",
@@ -71,29 +74,33 @@ namespace GastoSmart.Formularios
                 Width = 140
             });
 
-            // ANTES: AutoSizeMode = Fill  → eso es lo que da problemas
+            // Columna de descripción
             dgvTransacciones.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Descripcion",
                 HeaderText = "Descripción",
-                Width = 250 // un ancho fijo razonable
+                Width = 250   // ancho fijo razonable
             });
 
+            // Enlazamos el BindingSource al DataGridView
             dgvTransacciones.DataSource = _bindingSource;
         }
 
         // Carga la lista de transacciones y rellena el nombre de la categoría
         private void CargarDatos()
         {
+            // Obtener todas las transacciones
             var lista = _transaccionService.ObtenerTodo();
-            var categorias = AppServices.CategoriaService.ObtenerTodo();
+            var categorias = _categoriaService.ObtenerTodo();
 
+            // Rellenar el nombre de la categoría en cada transacción
             foreach (var t in lista)
             {
                 var cat = categorias.FirstOrDefault(c => c.IdCategoria == t.IdCategoria);
                 t.NombreCategoria = cat?.Nombre ?? string.Empty;
             }
 
+            // Actualizar el BindingSource con la lista
             _bindingSource.DataSource = lista;
             dgvTransacciones.DataSource = _bindingSource;
         }
@@ -106,6 +113,130 @@ namespace GastoSmart.Formularios
 
             return (Transaccion)dgvTransacciones.CurrentRow.DataBoundItem;
         }
+
+        // ------------------ BOTÓN NUEVA ------------------
+        private void btnNueva_Click(object sender, EventArgs e)
+        {
+            using var frm = new FrmTransaccionDetalle();
+
+            if (frm.ShowDialog() != DialogResult.OK)
+                return;
+
+            var transaccion = frm.Transaccion;
+
+            // 👉 Validar contra presupuesto antes de guardar
+            if (!ConfirmarSegunPresupuesto(transaccion))
+                return; // el usuario canceló
+
+            _transaccionService.Agregar(transaccion);
+
+            // Recargar datos para que se vea la nueva fila
+            CargarDatos();
+        }
+
+        // ------------------ BOTÓN EDITAR ------------------
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            var seleccionada = ObtenerSeleccionada();
+            if (seleccionada == null)
+            {
+                MessageBox.Show("Seleccione una transacción.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Clonamos la transacción para no tocar el original si cancelan
+            var copia = new Transaccion
+            {
+                IdTransaccion = seleccionada.IdTransaccion,
+                IdUsuario = seleccionada.IdUsuario,
+                IdCategoria = seleccionada.IdCategoria,
+                Fecha = seleccionada.Fecha,
+                Tipo = seleccionada.Tipo,
+                Monto = seleccionada.Monto,
+                Descripcion = seleccionada.Descripcion
+            };
+
+            using var frm = new FrmTransaccionDetalle(copia);
+
+            if (frm.ShowDialog() != DialogResult.OK)
+                return;
+
+            var editada = frm.Transaccion;
+
+            // 👉 Validar contra presupuesto también al editar
+            if (!ConfirmarSegunPresupuesto(editada))
+                return;
+
+            _transaccionService.Actualizar(editada);
+
+            // Recargar datos para reflejar cambios
+            CargarDatos();
+        }
+
+        // ------------------ BOTÓN ELIMINAR ------------------
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var seleccionada = ObtenerSeleccionada();
+            if (seleccionada == null)
+            {
+                MessageBox.Show("Seleccione una transacción.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var respuesta = MessageBox.Show(
+                $"¿Desea eliminar la transacción \"{seleccionada.Descripcion}\"?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (respuesta != DialogResult.Yes)
+                return;
+
+            _transaccionService.Eliminar(seleccionada.IdTransaccion);
+
+            CargarDatos();
+        }
+
+        // Si estuvieras usando una columna "colCategoria" que solo guarda Id,
+        // este evento la podría formatear con el nombre. Ahora usamos NombreCategoria
+        // directamente, pero dejo el código comentado como referencia.
+        private void dgvTransacciones_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvTransacciones.Columns[e.ColumnIndex].Name == "colCategoria")
+            {
+                var fila = dgvTransacciones.Rows[e.RowIndex];
+
+                if (fila.DataBoundItem is Transaccion trans)
+                {
+                    var cat = _categoriaService.ObtenerPorId(trans.IdCategoria);
+                    e.Value = cat?.Nombre ?? "(Sin categoría)";
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnCerrar_Click_1(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void FrmTransacciones_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void logo_Click(object sender, EventArgs e)
+        {
+        }
+
+        // ==================== PRESUPUESTO / ALERTAS ====================
+
         // Método central: valida el gasto contra el presupuesto
         // y pregunta al usuario qué hacer según el resultado.
         // Devuelve true si se debe continuar con el guardado.
@@ -207,128 +338,6 @@ namespace GastoSmart.Formularios
 
             // Caso por defecto: continuar
             return true;
-        }
-
-
-        // Botón NUEVA transacción
-
-        private void btnNueva_Click(object sender, EventArgs e)
-        {
-            using var frm = new FrmTransaccionDetalle();
-
-            if (frm.ShowDialog() != DialogResult.OK)
-                return;
-
-            var transaccion = frm.Transaccion;
-
-            _transaccionService.Agregar(transaccion);
-
-            // ANTES: _bindingSource.ResetBindings(false);
-            // AHORA:
-            CargarDatos();
-        }
-
-        private void btnEditar_Click(object sender, EventArgs e)
-        {
-            var seleccionada = ObtenerSeleccionada();
-            if (seleccionada == null)
-            {
-                MessageBox.Show("Seleccione una transacción.", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            var copia = new Transaccion
-            {
-                IdTransaccion = seleccionada.IdTransaccion,
-                IdUsuario = seleccionada.IdUsuario,
-                IdCategoria = seleccionada.IdCategoria,
-                Fecha = seleccionada.Fecha,
-                Tipo = seleccionada.Tipo,
-                Monto = seleccionada.Monto,
-                Descripcion = seleccionada.Descripcion
-            };
-
-            using var frm = new FrmTransaccionDetalle(copia);
-
-            if (frm.ShowDialog() != DialogResult.OK)
-                return;
-
-            var editada = frm.Transaccion;
-
-            _transaccionService.Actualizar(editada);
-
-            // ANTES: _bindingSource.ResetBindings(false);
-            CargarDatos();
-        }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            var seleccionada = ObtenerSeleccionada();
-            if (seleccionada == null)
-            {
-                MessageBox.Show("Seleccione una transacción.", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            var respuesta = MessageBox.Show(
-                $"¿Desea eliminar la transacción \"{seleccionada.Descripcion}\"?",
-                "Confirmar eliminación",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (respuesta != DialogResult.Yes)
-                return;
-
-            _transaccionService.Eliminar(seleccionada.IdTransaccion);
-
-            // ANTES: _bindingSource.ResetBindings(false);
-            CargarDatos();
-        }
-
-        private void dgvTransacciones_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            // Verificamos si la columna actual es la columna especial "colCategoria".
-            // Esta columna no muestra directamente el IdCategoria, sino el nombre.
-            if (dgvTransacciones.Columns[e.ColumnIndex].Name == "colCategoria")
-            {
-                // Obtenemos la fila asociada al evento.
-                var fila = dgvTransacciones.Rows[e.RowIndex];
-
-                // DataBoundItem es el objeto real (Transaccion) enlazado a la fila.
-                if (fila.DataBoundItem is Transaccion trans)
-                {
-                    // Buscamos en el servicio la categoría correspondiente al IdCategoria.
-                    var cat = _categoriaService.ObtenerPorId(trans.IdCategoria);
-
-                    // Si existe, mostramos su nombre; si no, mostramos un texto por defecto.
-                    e.Value = cat?.Nombre ?? "(Sin categoría)";
-
-                    // Indicamos que ya aplicamos el formato y no es necesario que el grid lo modifique.
-                    e.FormattingApplied = true;
-                }
-            }
-        }
-
-        private void btnCerrar_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnCerrar_Click_1(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void FrmTransacciones_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void logo_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

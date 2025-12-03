@@ -44,18 +44,15 @@ namespace GastoSmart.Formularios
             AplicarFiltros();       // Mostrar datos iniciales
         }
 
-        /// <summary>
         /// Devuelve la lista actualmente mostrada en el reporte.
-        /// </summary>
         private List<TransaccionReporteView> ObtenerDatosReporte()
         {
+            // Extrae la lista del BindingSource
             return _bindingSource.DataSource as List<TransaccionReporteView>
                    ?? new List<TransaccionReporteView>();
         }
 
-        //------------------------------------------------------------------------
         // Inicializa los filtros del formulario (fechas y tipo de transacción)
-        //------------------------------------------------------------------------
         private void InicializarFiltros()
         {
             // Fechas por defecto: del primer día del mes hasta hoy
@@ -73,16 +70,17 @@ namespace GastoSmart.Formularios
             cboTipo.SelectedIndex = 0; // Seleccionar "Todos"
         }
 
-        //------------------------------------------------------------------------
+
         // Carga las categorías activas en el combo de selección para filtrar
-        //------------------------------------------------------------------------
         private void CargarCategorias()
         {
+            // Obtener categorías activas ordenadas por nombre
             var categorias = _categoriaService.ObtenerTodo()
                 .Where(c => c.Activa)
                 .OrderBy(c => c.Nombre)
                 .ToList();
 
+            // Crear una nueva lista para el ComboBox, incluyendo "Todas"
             var listaCboCategorias = new List<Categoria>();
 
             // Se agrega la opción "Todas" con ID 0
@@ -101,14 +99,15 @@ namespace GastoSmart.Formularios
             cboCategoria.SelectedValue = 0; // Selección inicial = Todas
         }
 
-        //------------------------------------------------------------------------
+
         // Configuración manual de las columnas del DataGridView
-        //------------------------------------------------------------------------
         private void ConfigurarGrid()
         {
+            // Desactivamos la generación automática de columnas
             dgvReporte.AutoGenerateColumns = false;
             dgvReporte.Columns.Clear();
 
+            // Columna: Fecha
             dgvReporte.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Fecha",
@@ -116,21 +115,21 @@ namespace GastoSmart.Formularios
                 Width = 90,
                 DefaultCellStyle = { Format = "d" } // fecha corta
             });
-
+            // Columna: Tipo
             dgvReporte.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Tipo",
                 HeaderText = "Tipo",
                 Width = 70
             });
-
+            // Columna: Categoría
             dgvReporte.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Categoria",
                 HeaderText = "Categoría",
                 Width = 120
             });
-
+            // Columna: Monto
             dgvReporte.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Monto",
@@ -138,22 +137,22 @@ namespace GastoSmart.Formularios
                 Width = 90,
                 DefaultCellStyle = { Format = "C2" } // formato monetario
             });
-
+            // Columna: Descripción
             dgvReporte.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Descripcion",
                 HeaderText = "Descripción",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             });
-
+            // Enlazar el BindingSource al DataGridView
             dgvReporte.DataSource = _bindingSource;
         }
 
-        //------------------------------------------------------------------------
+
         // Aplica los filtros seleccionados por el usuario y refresca el reporte
-        //------------------------------------------------------------------------
         private void AplicarFiltros()
         {
+            // Obtener valores de los filtros
             var desde = dtpDesde.Value.Date;
             var hasta = dtpHasta.Value.Date;
 
@@ -200,6 +199,7 @@ namespace GastoSmart.Formularios
                 {
                     Fecha = t.Fecha,
                     Tipo = t.Tipo,
+                    // Obtener nombre de categoría o "(Sin categoría)" si no existe
                     Categoria = categoriasPorId.ContainsKey(t.IdCategoria)
                                 ? categoriasPorId[t.IdCategoria]
                                 : "(Sin categoría)",
@@ -288,19 +288,21 @@ namespace GastoSmart.Formularios
                     r.Monto.ToString("0.00"),
                     descripcionLimpia
                 );
-
+                // Agregar línea al StringBuilder
                 sb.AppendLine(linea);
             }
 
             // Guardar archivo
             try
             {
+                // Especificar UTF-8 para compatibilidad con caracteres especiales
                 File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8);
                 MessageBox.Show("Reporte exportado correctamente a CSV.",
                     "Exportar CSV", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
+                // Manejo básico de errores al guardar el archivo
                 MessageBox.Show($"Ocurrió un error al guardar el archivo:\n{ex.Message}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

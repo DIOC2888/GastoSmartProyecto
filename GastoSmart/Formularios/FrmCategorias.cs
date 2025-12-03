@@ -94,38 +94,46 @@ namespace GastoSmart.Formularios
             return (Categoria)dgvCategorias.CurrentRow.DataBoundItem;
         }
 
+        // Evento Click del botón "Nueva Categoría" 
         private void btnNueva_Click(object sender, EventArgs e)
         {
+            //Abrimos el formulario de detalle en modo creación
             using var frm = new FrmCategoriasDetalle();
 
+            //Si el usuario cancela, no hacemos nada
             if (frm.ShowDialog() != DialogResult.OK)
                 return;
 
             var categoria = frm.Categoria;
-
+            // Verificamos si ya existe una categoría con el mismo nombre
             if (_categoriaService.NombreExiste(categoria.Nombre))
             {
+                // Mostrar mensaje de advertencia
                 MessageBox.Show("Ya existe una categoría con ese nombre.",
                     "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
+            // Agregamos la nueva categoría
             _categoriaService.Agregar(categoria);
 
             // ANTES: _bindingSource.ResetBindings(false);
             CargarDatos();
         }
 
+        // Evento Click del botón "Editar Categoría"
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            //Obtenemos la categoría seleccionada en el DataGridView
             var seleccionada = ObtenerSeleccionada();
             if (seleccionada == null)
             {
+                //Si no hay selección, mostramos un aviso
                 MessageBox.Show("Seleccione una categoría.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
+            //Creamos una copia de la categoría para editar
             var copia = new Categoria
             {
                 IdCategoria = seleccionada.IdCategoria,
@@ -135,14 +143,16 @@ namespace GastoSmart.Formularios
                 Tipo = seleccionada.Tipo,
                 Activa = seleccionada.Activa
             };
-
+            //Abrimos el formulario de detalle en modo edición
             using var frm = new FrmCategoriasDetalle(copia);
 
             if (frm.ShowDialog() != DialogResult.OK)
                 return;
 
+            //Obtenemos la categoría editada desde el formulario
             var editada = frm.Categoria;
 
+            // Verificamos si ya existe otra categoría con el mismo nombre
             if (_categoriaService.NombreExiste(editada.Nombre, editada.IdCategoria))
             {
                 MessageBox.Show("Ya existe otra categoría con ese nombre.",
@@ -150,31 +160,36 @@ namespace GastoSmart.Formularios
                 return;
             }
 
+            //Actualizamos la categoría en el servicio
             _categoriaService.Actualizar(editada);
 
             // ANTES: _bindingSource.ResetBindings(false);
             CargarDatos();
         }
 
+        // Evento Click del botón "Eliminar Categoría"
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            //Obtenemos la categoría seleccionada en el DataGridView
             var seleccionada = ObtenerSeleccionada();
             if (seleccionada == null)
             {
+                //Si no hay selección, mostramos un aviso
                 MessageBox.Show("Seleccione una categoría.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
+            //Pedimos confirmación antes de eliminar
             var respuesta = MessageBox.Show(
                 $"¿Desea eliminar la categoría \"{seleccionada.Nombre}\"?",
                 "Confirmar eliminación",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
-
+            //Si el usuario no confirma, salimos
             if (respuesta != DialogResult.Yes)
                 return;
-
+            //Eliminamos la categoría desde el servicio
             _categoriaService.Eliminar(seleccionada.IdCategoria);
 
             // ANTES: _bindingSource.ResetBindings(false);
