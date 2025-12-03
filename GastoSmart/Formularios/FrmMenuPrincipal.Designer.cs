@@ -57,7 +57,7 @@
             lblSaldoActual.AutoSize = true;
             lblSaldoActual.BackColor = Color.White;
             lblSaldoActual.ForeColor = Color.Black;
-            lblSaldoActual.Location = new Point(147, 111);
+            lblSaldoActual.Location = new Point(189, 111);
             lblSaldoActual.Name = "lblSaldoActual";
             lblSaldoActual.Size = new Size(93, 20);
             lblSaldoActual.TabIndex = 2;
@@ -68,7 +68,7 @@
             lblPresupuesto.AutoSize = true;
             lblPresupuesto.BackColor = Color.White;
             lblPresupuesto.ForeColor = Color.Black;
-            lblPresupuesto.Location = new Point(320, 111);
+            lblPresupuesto.Location = new Point(438, 111);
             lblPresupuesto.Name = "lblPresupuesto";
             lblPresupuesto.Size = new Size(89, 20);
             lblPresupuesto.TabIndex = 3;
@@ -79,7 +79,7 @@
             lblMontoGastado.AutoSize = true;
             lblMontoGastado.BackColor = Color.White;
             lblMontoGastado.ForeColor = Color.Black;
-            lblMontoGastado.Location = new Point(513, 111);
+            lblMontoGastado.Location = new Point(332, 149);
             lblMontoGastado.Name = "lblMontoGastado";
             lblMontoGastado.Size = new Size(112, 20);
             lblMontoGastado.TabIndex = 4;

@@ -47,57 +47,54 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(219, 193);
+            label1.Location = new Point(294, 238);
             label1.Name = "label1";
-            label1.Size = new Size(123, 15);
+            label1.Size = new Size(151, 20);
             label1.TabIndex = 0;
             label1.Text = "Presupuesto Mensual:";
             // 
             // nudUmbralMensual
             // 
-            nudUmbralMensual.Location = new Point(381, 241);
-            nudUmbralMensual.Margin = new Padding(3, 2, 3, 2);
+            nudUmbralMensual.Location = new Point(462, 281);
             nudUmbralMensual.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudUmbralMensual.Name = "nudUmbralMensual";
-            nudUmbralMensual.Size = new Size(131, 23);
+            nudUmbralMensual.Size = new Size(150, 27);
             nudUmbralMensual.TabIndex = 1;
             nudUmbralMensual.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(219, 241);
+            label2.Location = new Point(257, 283);
             label2.Name = "label2";
-            label2.Size = new Size(150, 15);
+            label2.Size = new Size(188, 20);
             label2.TabIndex = 2;
             label2.Text = "Umbral alerta mensual (%):";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(219, 301);
+            label3.Location = new Point(274, 330);
             label3.Name = "label3";
-            label3.Size = new Size(134, 15);
+            label3.Size = new Size(171, 20);
             label3.TabIndex = 3;
             label3.Text = "Umbral alerta diaria (%):";
             // 
             // nudMontoMensual
             // 
             nudMontoMensual.DecimalPlaces = 2;
-            nudMontoMensual.Location = new Point(381, 191);
-            nudMontoMensual.Margin = new Padding(3, 2, 3, 2);
+            nudMontoMensual.Location = new Point(462, 238);
             nudMontoMensual.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             nudMontoMensual.Name = "nudMontoMensual";
-            nudMontoMensual.Size = new Size(131, 23);
+            nudMontoMensual.Size = new Size(150, 27);
             nudMontoMensual.TabIndex = 4;
             // 
             // nudUmbralDiario
             // 
-            nudUmbralDiario.Location = new Point(381, 299);
-            nudUmbralDiario.Margin = new Padding(3, 2, 3, 2);
+            nudUmbralDiario.Location = new Point(462, 330);
             nudUmbralDiario.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudUmbralDiario.Name = "nudUmbralDiario";
-            nudUmbralDiario.Size = new Size(131, 23);
+            nudUmbralDiario.Size = new Size(150, 27);
             nudUmbralDiario.TabIndex = 5;
             nudUmbralDiario.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
@@ -105,10 +102,9 @@
             // 
             btnGuardar.BackColor = SystemColors.HotTrack;
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(260, 345);
-            btnGuardar.Margin = new Padding(3, 2, 3, 2);
+            btnGuardar.Location = new Point(323, 410);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(82, 22);
+            btnGuardar.Size = new Size(94, 29);
             btnGuardar.TabIndex = 6;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = false;
@@ -118,10 +114,9 @@
             // 
             btnCancelar.BackColor = SystemColors.HotTrack;
             btnCancelar.ForeColor = Color.White;
-            btnCancelar.Location = new Point(364, 345);
-            btnCancelar.Margin = new Padding(3, 2, 3, 2);
+            btnCancelar.Location = new Point(475, 410);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(82, 22);
+            btnCancelar.Size = new Size(94, 29);
             btnCancelar.TabIndex = 7;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
@@ -130,21 +125,21 @@
             // logo
             // 
             logo.BackColor = Color.Transparent;
+            logo.Dock = DockStyle.Fill;
             logo.Image = (Image)resources.GetObject("logo.Image");
-            logo.Location = new Point(-102, -22);
-            logo.Margin = new Padding(3, 2, 3, 2);
+            logo.Location = new Point(0, 0);
             logo.Name = "logo";
-            logo.Size = new Size(919, 478);
+            logo.Size = new Size(887, 571);
             logo.SizeMode = PictureBoxSizeMode.Zoom;
             logo.TabIndex = 11;
             logo.TabStop = false;
             // 
             // FrmPresupuestoGlobal
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(726, 428);
+            ClientSize = new Size(887, 571);
             Controls.Add(btnCancelar);
             Controls.Add(btnGuardar);
             Controls.Add(nudUmbralDiario);
@@ -154,7 +149,6 @@
             Controls.Add(nudUmbralMensual);
             Controls.Add(label1);
             Controls.Add(logo);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "FrmPresupuestoGlobal";
             Text = "FrmPresupuestoGlobal";
             Load += FrmPresupuestoGlobal_Load;
